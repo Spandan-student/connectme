@@ -1,0 +1,367 @@
+{% extends "Applayout.html" %}
+{% block content %}
+{% load static %}
+        
+        <header class="hero-section">
+            <div class="hero-content">
+                <h1>Connect. Collaborate. Create.</h1>
+                <p class="hero-subtitle">Find your perfect team at your university and bring your ideas to life</p>
+                <div class="cta-buttons">
+                    <a href="{% url "registration" %}" class="btn primary large">Get Started</a>
+                    <a href="#how-it-works" class="btn secondary large">Learn More</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">10,000+</span>
+                        <span class="stat-text">Students</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-text">Projects</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-text">Universities</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="img/hero-image.png" alt="Students collaborating" class="main-image">
+                <div class="floating-card card-1">
+                    <div class="user-avatar"><i class="fas fa-user-circle"></i></div>
+                    <div class="card-content">
+                        <p>Matched with 3 new peers!</p>
+                    </div>
+                </div>
+                <div class="floating-card card-2">
+                    <div class="user-avatar"><i class="fas fa-users"></i></div>
+                    <div class="card-content">
+                        <p>Team formed successfully!</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <section id="how-it-works" class="section">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h3>Create Your Profile</h3>
+                    <p>Sign up with your university email and showcase your skills and interests</p>
+                </div>
+                <div class="step-arrow">
+                    <i class="fas fa-long-arrow-alt-right"></i>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Find Like-minded Peers</h3>
+                    <p>Our algorithm matches you with students who share your interests</p>
+                </div>
+                <div class="step-arrow">
+                    <i class="fas fa-long-arrow-alt-right"></i>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Form or Join Teams</h3>
+                    <p>Create your own team or join existing projects that interest you</p>
+                </div>
+                <div class="step-arrow">
+                    <i class="fas fa-long-arrow-alt-right"></i>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Collaborate & Succeed</h3>
+                    <p>Work together to bring your projects to life and build your portfolio</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="features" class="section gradient-bg">
+            <h2 class="section-title light">Awesome Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-fingerprint"></i>
+                    </div>
+                    <h3>Smart Matching</h3>
+                    <p>Our algorithm finds the perfect peers based on your skills, interests, and academic goals</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3>Project Management</h3>
+                    <p>Powerful tools to manage your team projects, assign tasks, and track progress</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <h3>Real-time Messaging</h3>
+                    <p>Instant messaging to communicate effectively with your team members</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Event Planning</h3>
+                    <p>Organize meetings, study sessions, and events with your team members</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure & Private</h3>
+                    <p>Verified university emails only, keeping your academic network safe</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>Showcase Portfolio</h3>
+                    <p>Display your completed projects and achievements to build your resume</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="showcase" class="section">
+            <h2 class="section-title">Projects Showcase</h2>
+            <div class="carousel-container">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="img/project1.jpg" alt="AR Campus App">
+                            </div>
+                            <div class="project-content">
+                                <h3>AR Campus Navigation</h3>
+                                <p>A cutting-edge AR app helping new students navigate campus efficiently</p>
+                                <div class="project-tags">
+                                    <span class="tag">Mobile Dev</span>
+                                    <span class="tag">AR/VR</span>
+                                    <span class="tag">UI/UX</span>
+                                </div>
+                                <div class="project-team">
+                                    <div class="team-avatars">
+                                        <span class="avatar"></span>
+                                        <span class="avatar"></span>
+                                        <span class="avatar"></span>
+                                    </div>
+                                    <span class="team-count">Team of 5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="img/project2.jpg" alt="Student Marketplace">
+                            </div>
+                            <div class="project-content">
+                                <h3>Student Marketplace</h3>
+                                <p>A platform for students to buy and sell textbooks, supplies, and services</p>
+                                <div class="project-tags">
+                                    <span class="tag">Web Dev</span>
+                                    <span class="tag">E-commerce</span>
+                                    <span class="tag">Database</span>
+                                </div>
+                                <div class="project-team">
+                                    <div class="team-avatars">
+                                        <span class="avatar"></span>
+                                        <span class="avatar"></span>
+                                        <span class="avatar"></span>
+                                    </div>
+                                    <span class="team-count">Team of 4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="img/project3.jpg" alt="Study Group Scheduler">
+                            </div>
+                            <div class="project-content">
+                                <h3>Study Group Scheduler</h3>
+                                <p>An intelligent system that pairs students for optimal study sessions</p>
+                                <div class="project-tags">
+                                    <span class="tag">Algorithm</span>
+                                    <span class="tag">Web App</span>
+                                    <span class="tag">AI/ML</span>
+                                </div>
+                                <div class="project-team">
+                                    <div class="team-avatars">
+                                        <span class="avatar"></span>
+                                        <span class="avatar"></span>
+                                        <span class="avatar"></span>
+                                    </div>
+                                    <span class="team-count">Team of 6</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-button prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-button next"><i class="fas fa-chevron-right"></i></button>
+                <div class="carousel-indicators">
+                    <button class="indicator active"></button>
+                    <button class="indicator"></button>
+                    <button class="indicator"></button>
+                </div>
+            </div>
+        </section>
+        
+        <section id="testimonials" class="section gradient-bg">
+            <h2 class="section-title light">Student Testimonials</h2>
+            <div class="testimonials-container">
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>"StudentConnect helped me find the perfect team for my senior project. We ended up winning first place in the engineering showcase!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div class="author-info">
+                            <h4>Alex Johnson</h4>
+                            <p>Computer Science, MIT</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>"As an international student, it was hard to connect with peers in my program until I found StudentConnect. Now I have an amazing network!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div class="author-info">
+                            <h4>Priya Patel</h4>
+                            <p>Data Science, Stanford</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>"The skills matching algorithm is incredible! I found teammates who complement my abilities perfectly, making our projects so much better."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div class="author-info">
+                            <h4>Marcus Chen</h4>
+                            <p>Digital Media Arts, UCLA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="universities" class="section">
+            <h2 class="section-title">Universities Using StudentConnect</h2>
+            <div class="universities-grid">
+                <div class="university-logo">
+                    <img src="img/university1.png" alt="University Logo">
+                </div>
+                <div class="university-logo">
+                    <img src="img/university2.png" alt="University Logo">
+                </div>
+                <div class="university-logo">
+                    <img src="img/university3.png" alt="University Logo">
+                </div>
+                <div class="university-logo">
+                    <img src="img/university4.png" alt="University Logo">
+                </div>
+                <div class="university-logo">
+                    <img src="img/university5.png" alt="University Logo">
+                </div>
+                <div class="university-logo">
+                    <img src="img/university6.png" alt="University Logo">
+                </div>
+            </div>
+        </section>
+        
+        <section id="faq" class="section gradient-bg">
+            <h2 class="section-title light">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How do I verify my university email?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>After registration, we'll send a verification link to your university email address. Simply click the link to verify your account.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can I join multiple teams?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! You can join up to 5 active teams at once, allowing you to collaborate on different projects simultaneously.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How does the matching algorithm work?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our matching algorithm analyzes your skills, interests, academic goals, and project preferences to suggest peers who would make great collaborators.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Is StudentConnect free for students?</h3>
+                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! StudentConnect is completely free for all university students with a valid .edu email address.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="download" class="section">
+            <div class="download-container">
+                <div class="download-content">
+                    <h2>Take StudentConnect On The Go</h2>
+                    <p>Download our mobile app to stay connected with your teams anywhere, anytime.</p>
+                    <div class="app-badges">
+                        <a href="#" class="app-badge">
+                            <img src="img/app-store.png" alt="App Store">
+                        </a>
+                        <a href="#" class="app-badge">
+                            <img src="img/google-play.png" alt="Google Play">
+                        </a>
+                    </div>
+                </div>
+                <div class="download-image">
+                    <img src="img/app-mockup.png" alt="Mobile App">
+                </div>
+            </div>
+        </section>
+
+        <!-- Notification popup -->
+    <div class="notification-popup" id="welcomePopup">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <div class="popup-icon">
+                <i class="fas fa-bell"></i>
+            </div>
+            <h3>Welcome to StudentConnect!</h3>
+            <p>Connect with fellow students, join teams, and bring your ideas to life.</p>
+            <a href="register.html" class="btn primary">Get Started</a>
+        </div>
+    </div>
+    
+    <script src="{% static 'js/landing.js' %}"></script>
+
+{% endblock content %}
+    

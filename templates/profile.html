@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Your Profile - StudentConnect</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}"><link rel="stylesheet" href="{% static 'css/modern-profile.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>StudentConnect</span>
+                </div>
+                <button class="mobile-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="profile-summary">
+                <div class="profile-image">
+                    <img id="sidebar-avatar" src="img/default-avatar.png" alt="Profile picture">
+                    <span class="status-indicator online"></span>
+                </div>
+                <h3 id="sidebar-name">User Name</h3>
+                <p id="sidebar-major">Major & Year</p>
+            </div>
+            
+            <ul class="nav-menu">
+                <li>
+                    <a href="dashboard.html">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="profile.html">
+                        <i class="fas fa-user"></i>
+                        <span>My Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="teams.html">
+                        <i class="fas fa-users"></i>
+                        <span>Teams</span>
+                        <span class="badge">2</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-comment-alt"></i>
+                        <span>Messages</span>
+                        <span class="badge alert">3</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-search"></i>
+                        <span>Find Students</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li class="logout">
+                    <a href="#" id="logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <p>© 2025 StudentConnect</p>
+                <div class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-switch">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <header class="content-header">
+                <div class="left-section">
+                    <button class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1>My Profile</h1>
+                </div>
+                
+                <div class="right-section">
+                    <div class="profile-actions">
+                        <button class="btn outline">
+                            <i class="fas fa-eye"></i> View Public Profile
+                        </button>
+                        <div class="btn-group">
+                            <button class="btn outline active" data-view="edit">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn outline" data-view="preview">
+                                <i class="fas fa-desktop"></i> Preview
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="profile-container">
+                <aside class="profile-sidebar">
+                    <div class="profile-card">
+                        <div class="profile-cover">
+                            <button class="edit-cover">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                        <div class="profile-main">
+                            <div class="profile-avatar-container">
+                                <img id="preview" src="img/default-avatar.png" alt="Profile picture">
+                                <label for="avatar" class="edit-avatar">
+                                    <i class="fas fa-camera"></i>
+                                </label>
+                                <input type="file" id="avatar" accept="image/*" style="display: none;">
+                            </div>
+                            <h2 id="profile-name">Your Name</h2>
+                            <p id="profile-headline">Computer Science Student</p>
+                            <p id="profile-university">University Name</p>
+                            <div class="profile-stats">
+                                <div class="stat">
+                                    <span class="stat-number">24</span>
+                                    <span class="stat-label">Connections</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number">2</span>
+                                    <span class="stat-label">Teams</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number">3</span>
+                                    <span class="stat-label">Projects</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="social-links">
+                            <button class="add-social" title="Add Social Link">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                            <a href="#" class="social-icon github" title="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="social-icon linkedin" title="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="social-icon portfolio" title="Portfolio">
+                                <i class="fas fa-globe"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-section connections-preview">
+                        <div class="section-header">
+                            <h3>Connections</h3>
+                            <a href="#" class="view-all">View All</a>
+                        </div>
+                        <div class="connection-avatars">
+                            <a href="#" class="connection-item" title="Alex Johnson">
+                                <img src="img/student1.jpg" alt="Alex Johnson">
+                            </a>
+                            <a href="#" class="connection-item" title="Emily Wong">
+                                <img src="img/student2.jpg" alt="Emily Wong">
+                            </a>
+                            <a href="#" class="connection-item" title="Marcus Chen">
+                                <img src="img/student3.jpg" alt="Marcus Chen">
+                            </a>
+                            <a href="#" class="connection-item" title="Sarah Lee">
+                                <img src="img/student4.jpg" alt="Sarah Lee">
+                            </a>
+                            <a href="#" class="connection-item" title="Alex Wong">
+                                <img src="img/student5.jpg" alt="Alex Wong">
+                            </a>
+                            <a href="#" class="connection-item more">
+                                <span>+19</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-section teams-preview">
+                        <div class="section-header">
+                            <h3>My Teams</h3>
+                            <a href="teams.html" class="view-all">View All</a>
+                        </div>
+                        <div class="mini-teams-list">
+                            <a href="#" class="mini-team">
+                                <span class="team-icon">
+                                    <i class="fas fa-laptop-code"></i>
+                                </span>
+                                <span class="team-info">
+                                    <span class="team-name">Web App Development</span>
+                                    <span class="team-role">Member</span>
+                                </span>
+                            </a>
+                            <a href="#" class="mini-team">
+                                <span class="team-icon">
+                                    <i class="fas fa-brain"></i>
+                                </span>
+                                <span class="team-info">
+                                    <span class="team-name">Machine Learning Study Group</span>
+                                    <span class="team-role">Member</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </aside>
+                
+                <div class="profile-content">
+                    <form id="profile" class="profile-form">
+                        <section class="form-card">
+                            <div class="section-header">
+                                <h2>
+                                    <i class="fas fa-user-graduate"></i>
+                                    Academic Information
+                                </h2>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="university">University</label>
+                                    <div class="input-icon-wrapper">
+                                        <i class="fas fa-university input-icon"></i>
+                                        <input type="text" id="university" placeholder="Your university" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="major">Major/Program</label>
+                                    <div class="input-icon-wrapper">
+                                        <i class="fas fa-graduation-cap input-icon"></i>
+                                        <input type="text" id="major" placeholder="Your major or program" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="year">Year of Study</label>
+                                    <div class="input-icon-wrapper">
+                                        <i class="fas fa-calendar-alt input-icon"></i>
+                                        <select id="year" required>
+                                            <option value="">Select Year</option>
+                                            <option value="1">First Year</option>
+                                            <option value="2">Second Year</option>
+                                            <option value="3">Third Year</option>
+                                            <option value="4">Fourth Year</option>
+                                            <option value="5+">Fifth Year or Higher</option>
+                                            <option value="grad">Graduate</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="graduation">Expected Graduation</label>
+                                    <div class="input-icon-wrapper">
+                                        <i class="fas fa-calendar-check input-icon"></i>
+                                        <input type="month" id="graduation">
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="form-card">
+                            <div class="section-header">
+                                <h2>
+                                    <i class="fas fa-tools"></i>
+                                    Skills & Interests
+                                </h2>
+                            </div>
+                            <div class="form-group">
+                                <label for="skills">Skills (comma separated)</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-code input-icon"></i>
+                                    <input type="text" id="skills" placeholder="e.g., JavaScript, UI Design, Data Analysis">
+                                </div>
+                                <div id="skills-tags" class="tags-container"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="interests">Interests (comma separated)</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-heart input-icon"></i>
+                                    <input type="text" id="interests" placeholder="e.g., Web Development, AI, Mobile Apps">
+                                </div>
+                                <div id="interests-tags" class="tags-container"></div>
+                            </div>
+                            <div class="skill-levels">
+                                <h3>Skill Proficiency</h3>
+                                <p class="hint-text">Drag the sliders to indicate your proficiency level in each area</p>
+                                <div class="skill-slider">
+                                    <div class="skill-label">
+                                        <span>Programming</span>
+                                        <span class="skill-value">Advanced</span>
+                                    </div>
+                                    <input type="range" min="1" max="5" value="4" class="slider" id="programming-slider">
+                                    <div class="skill-ticks">
+                                        <span>Beginner</span>
+                                        <span>Advanced</span>
+                                    </div>
+                                </div>
+                                <div class="skill-slider">
+                                    <div class="skill-label">
+                                        <span>Design</span>
+                                        <span class="skill-value">Intermediate</span>
+                                    </div>
+                                    <input type="range" min="1" max="5" value="3" class="slider" id="design-slider">
+                                    <div class="skill-ticks">
+                                        <span>Beginner</span>
+                                        <span>Advanced</span>
+                                    </div>
+                                </div>
+                                <div class="skill-slider">
+                                    <div class="skill-label">
+                                        <span>Data Analysis</span>
+                                        <span class="skill-value">Beginner</span>
+                                    </div>
+                                    <input type="range" min="1" max="5" value="2" class="slider" id="data-slider">
+                                    <div class="skill-ticks">
+                                        <span>Beginner</span>
+                                        <span>Advanced</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="form-card">
+                            <div class="section-header">
+                                <h2>
+                                    <i class="fas fa-user-circle"></i>
+                                    About You
+                                </h2>
+                            </div>
+                            <div class="form-group">
+                                <label for="bio">Bio</label>
+                                <div class="input-icon-wrapper textarea-wrapper">
+                                    <i class="fas fa-pen input-icon"></i>
+                                    <textarea id="bio" rows="4" placeholder="Tell others about yourself, your experiences, and what you're looking for"></textarea>
+                                </div>
+                                <div class="char-counter">
+                                    <span id="bio-count">0</span>/500 characters
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="collaboration">Collaboration Preferences</label>
+                                <div class="input-icon-wrapper textarea-wrapper">
+                                    <i class="fas fa-handshake input-icon"></i>
+                                    <textarea id="collaboration" rows="3" placeholder="Describe your preferred collaboration style, availability, and what you're looking to learn or contribute"></textarea>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="form-card">
+                            <div class="section-header">
+                                <h2>
+                                    <i class="fas fa-briefcase"></i>
+                                    Projects & Experience
+                                </h2>
+                                <button type="button" class="btn-add">
+                                    <i class="fas fa-plus"></i> Add Project
+                                </button>
+                            </div>
+                            <div class="project-list">
+                                <div class="project-item">
+                                    <div class="project-header">
+                                        <h3>
+                                            <input type="text" placeholder="Project Name" value="Student Marketplace App">
+                                        </h3>
+                                        <div class="project-actions">
+                                            <button type="button" class="btn-icon">
+                                                <i class="fas fa-arrow-up"></i>
+                                            </button>
+                                            <button type="button" class="btn-icon">
+                                                <i class="fas fa-arrow-down"></i>
+                                            </button>
+                                            <button type="button" class="btn-icon delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="project-body">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>Role</label>
+                                                <input type="text" placeholder="Your role" value="Frontend Developer">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Date</label>
+                                                <input type="text" placeholder="Date or duration" value="Jan 2025 - Present">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <textarea rows="2" placeholder="Describe the project and your contributions">Developed a peer-to-peer marketplace for university students to buy and sell textbooks, supplies, and services.</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Technologies Used</label>
+                                            <div class="mini-tags">
+                                                <span class="mini-tag">React.js</span>
+                                                <span class="mini-tag">Firebase</span>
+                                                <span class="mini-tag">Tailwind CSS</span>
+                                                <span class="mini-tag-add">+ Add</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Project URL (Optional)</label>
+                                            <input type="url" placeholder="https://..." value="https://github.com/yourusername/marketplace-app">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="project-item">
+                                    <div class="project-header">
+                                        <h3>
+                                            <input type="text" placeholder="Project Name" value="AI Study Assistant">
+                                        </h3>
+                                        <div class="project-actions">
+                                            <button type="button" class="btn-icon">
+                                                <i class="fas fa-arrow-up"></i>
+                                            </button>
+                                            <button type="button" class="btn-icon">
+                                                <i class="fas fa-arrow-down"></i>
+                                            </button>
+                                            <button type="button" class="btn-icon delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="project-body">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>Role</label>
+                                                <input type="text" placeholder="Your role" value="ML Engineer">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Date</label>
+                                                <input type="text" placeholder="Date or duration" value="Sep 2024 - Dec 2024">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <textarea rows="2" placeholder="Describe the project and your contributions">Created an AI-powered study assistant that helps students optimize their study schedules and provides personalized learning recommendations.</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Technologies Used</label>
+                                            <div class="mini-tags">
+                                                <span class="mini-tag">Python</span>
+                                                <span class="mini-tag">TensorFlow</span>
+                                                <span class="mini-tag">Flask</span>
+                                                <span class="mini-tag-add">+ Add</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Project URL (Optional)</label>
+                                            <input type="url" placeholder="https://..." value="https://github.com/yourusername/ai-study-assistant">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn outline">Cancel</button>
+                            <button type="submit" class="btn primary">Save Profile</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast-notification" class="toast-notification">
+        <div class="toast-icon success">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="toast-content">
+            <p class="toast-message">Profile saved successfully!</p>
+        </div>
+        <button class="toast-close">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <script src="{% static 'js/profile.js'%}"></script>
+</body>
+</html>

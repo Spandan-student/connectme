@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams - StudentConnect</title>
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css'%}">
+    <link rel="stylesheet" href="{% static 'css/teams.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <div class="profile-summary">
+                <div class="avatar-container">
+                    <img id="user-avatar" src="img/default-avatar.png" alt="Profile picture">
+                    <span class="status-indicator online"></span>
+                </div>
+                <h3 id="user-name">User Name</h3>
+                <p id="user-major">Major & Year</p>
+                <div class="profile-stats">
+                    <div class="stat">
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">Teams</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">12</span>
+                        <span class="stat-label">Connections</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Projects</span>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li>
+                    <a href="dashboard.html">
+                        <i class="fas fa-th-large"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html">
+                        <i class="fas fa-user"></i>
+                        <span>My Profile</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="teams.html">
+                        <i class="fas fa-users"></i>
+                        <span>Teams</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-comment-alt"></i>
+                        <span>Messages</span>
+                        <span class="badge">3</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-search"></i>
+                        <span>Find Students</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="#" id="logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+                <p>© 2025 StudentConnect</p>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <header class="content-header">
+                <div class="header-left">
+                    <h1><i class="fas fa-users"></i> Teams</h1>
+                    <p>Find, create, and manage your project teams</p>
+                </div>
+                <div class="header-right">
+                    <div class="search-container">
+                        <input type="text" placeholder="Search teams...">
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn primary" id="create-team-btn">
+                            <i class="fas fa-plus"></i> Create Team
+                        </button>
+                        <button class="btn secondary" id="join-team-btn">
+                            <i class="fas fa-sign-in-alt"></i> Join Team
+                        </button>
+                        <div class="notification-icon">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">2</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="page-content">
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>5</h3>
+                            <p>My Teams</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>12</h3>
+                            <p>Active Projects</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon purple">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>24</h3>
+                            <p>Team Members</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>8</h3>
+                            <p>Upcoming Tasks</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <section class="teams-container">
+                    <div class="tabs-container">
+                        <div class="tabs">
+                            <button class="tab active" data-tab="my-teams">
+                                <i class="fas fa-star"></i> My Teams
+                            </button>
+                            <button class="tab" data-tab="open-teams">
+                                <i class="fas fa-globe"></i> Open Teams
+                            </button>
+                            <button class="tab" data-tab="archived-teams">
+                                <i class="fas fa-archive"></i> Archived
+                            </button>
+                        </div>
+                        <div class="view-toggle">
+                            <button class="view-btn active" data-view="grid">
+                                <i class="fas fa-th-large"></i>
+                            </button>
+                            <button class="view-btn" data-view="list">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="my-teams">
+                        <div class="teams-grid">
+                            <div class="team-card">
+                                <div class="team-banner" style="background-image: url('img/team-banner1.jpg')">
+                                    <div class="team-status active">Active</div>
+                                    <div class="team-favorite active">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="team-content">
+                                    <h2>Web App Development</h2>
+                                    <p class="team-description">Building a student connection platform that allows university students to find peers with similar interests and form project teams.</p>
+                                    
+                                    <div class="team-progress">
+                                        <div class="progress-label">
+                                            <span>Project Progress</span>
+                                            <span>75%</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 75%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="team-skills">
+                                        <h4><i class="fas fa-code"></i> Required Skills</h4>
+                                        <div class="tags">
+                                            <span class="tag">HTML/CSS</span>
+                                            <span class="tag">JavaScript</span>
+                                            <span class="tag">UI/UX Design</span>
+                                            <span class="tag">Backend Dev</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="team-members">
+                                        <h4><i class="fas fa-users"></i> Team Members (4/6)</h4>
+                                        <div class="members-avatars">
+                                            <div class="member-avatar" data-tooltip="You (Team Lead)">
+                                                <img src="img/default-avatar.png" alt="You">
+                                                <span class="role-indicator leader">L</span>
+                                            </div>
+                                            <div class="member-avatar" data-tooltip="Jane Smith (UX Designer)">
+                                                <img src="img/default-avatar.png" alt="Jane">
+                                            </div>
+                                            <div class="member-avatar" data-tooltip="Mike Johnson (Backend Developer)">
+                                                <img src="img/default-avatar.png" alt="Mike">
+                                            </div>
+                                            <div class="member-avatar" data-tooltip="Sarah Lee (Database Specialist)">
+                                                <img src="img/default-avatar.png" alt="Sarah">
+                                            </div>
+                                            <a class="add-member" href="#">
+                                                <i class="fas fa-plus"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="team-activity">
+                                        <div class="activity-item">
+                                            <div class="activity-icon">
+                                                <i class="fas fa-tasks"></i>
+                                            </div>
+                                            <div class="activity-content">
+                                                <span class="activity-text">8 tasks due this week</span>
+                                                <span class="activity-time">Next: May 12</span>
+                                            </div>
+                                        </div>
+                                        <div class="activity-item">
+                                            <div class="activity-icon">
+                                                <i class="fas fa-comments"></i>
+                                            </div>
+                                            <div class="activity-content">
+                                                <span class="activity-text">3 new messages</span>
+                                                <span class="activity-time">10 min ago</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="team-actions">
+                                        <button class="btn primary">
+                                            <i class="fas fa-desktop"></i> Workspace
+                                        </button>
+                                        <button class="btn secondary">
+                                            <i class="fas fa-user-plus"></i> Invite
+                                        </button>
+                                        <button class="btn outline action-menu-btn">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="action-menu">
+                                            <a href="#"><i class="fas fa-edit"></i> Edit Team</a>
+                                            <a href="#"><i class="fas fa-chart-bar"></i> Statistics</a>
+                                            <a href="#"><i class="fas fa-calendar-alt"></i> Schedule</a>
+                                            <a href="#" class="danger"><i class="fas fa-sign-out-alt"></i> Leave Team</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="team-card">
+                                <div class="team-banner" style="background-image: url('img/team-banner2.jpg')">
+                                    <div class="team-status active">Active</div>
+                                    <div class="team-favorite">
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="team-content">
+                                    <h2>Machine Learning Study Group</h2>
+                                    <p class="team-description">A group dedicated to learning machine learning concepts and applying them to real-world problems through collaborative projects.</p>
+                                    
+                                    <div class="team-progress">
+                                        <div class="progress-label">
+                                            <span>Project Progress</span>
+                                            <span>45%</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 45%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="team-skills">
+                                        <h4><i class="fas fa-code"></i> Required Skills</h4>
+                                        <div class="tags">
+                                            <span class="tag">Python</span>
+                                            <span class="tag">Data Analysis</span>
+                                            <span class="tag">Machine Learning</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="team-members">
+                                        <h4><i class="fas fa-users"></i> Team Members (3/5)</h4>
+                                        <div class="members-avatars">
+                                            <div class="member-avatar" data-tooltip="Alex Wong (Team Lead)">
+                                                <img src="img/default-avatar.png" alt="Alex">
+                                                <span class="role-indicator leader">L</span>
+                                            </div>
+                                            <div class="member-avatar" data-tooltip="You (Data Analyst)">
+                                                <img src="img/default-avatar.png" alt="You">
+                                            </div>
+                                            <div class="member-avatar" data-tooltip="Priya Patel (Python Developer)">
+                                                <img src="img/default-avatar.png" alt="Priya">
+                                            </div>
+                                            <a class="add-member" href="#">
+                                                <i class="fas fa-plus"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="team-activity">
+                                        <div class="activity-item">
+                                            <div class="activity-icon">
+                                                <i class="fas fa-book"></i>
+                                            </div>
+                                            <div class="activity-content">
+                                                <span class="activity-text">New ML resource added</span>
+                                                <span class="activity-time">2 hours ago</span>
+                                            </div>
+                                        </div>
+                                        <div class="activity-item">
+                                            <div class="activity-icon">
+                                                <i class="fas fa-calendar-day"></i>
+                                            </div>
+                                            <div class="activity-content">
+                                                <span class="activity-text">Study session scheduled</span>
+                                                <span class="activity-time">Tomorrow, 4PM</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="team-actions">
+                                        <button class="btn primary">
+                                            <i class="fas fa-desktop"></i> Workspace
+                                        </button>
+                                        <button class="btn secondary">
+                                            <i class="fas fa-user-plus"></i> Invite
+                                        </button>
+                                        <button class="btn outline action-menu-btn">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="action-menu">
+                                            <a href="#"><i class="fas fa-edit"></i> Edit Team</a>
+                                            <a href="#"><i class="fas fa-chart-bar"></i> Statistics</a>
+                                            <a href="#"><i class="fas fa-calendar-alt"></i> Schedule</a>
+                                            <a href="#" class="danger"><i class="fas fa-sign-out-alt"></i> Leave Team</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="open-teams" style="display: none;">
+                        <div class="teams-grid">
+                            <div class="team-card">
+                                <div class="team-banner" style="background-image: url('img/team-banner3.jpg')">
+                                    <div class="team-status recruiting">Recruiting</div>
+                                    <div class="team-favorite">
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="team-content">
+                                    <h2>Mobile App Development</h2>
+                                    <p class="team-description">Creating a campus navigation app with AR features to help new students find their way around the university campus efficiently.</p>
+                                    
+                                    <div class="team-progress">
+                                        <div class="progress-label">
+                                            <span>Team Completion</span>
+                                            <span>40%</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 40%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="team-skills">
+                                        <h4><i class="fas fa-code"></i> Required Skills</h4>
+                                        <div class="tags">
+                                            <span class="tag">Swift</span>
+                                            <span class="tag">Kotlin</span>
+                                            <span class="tag">AR Development</span>
+                                            <span class="tag">UI/UX Design</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="team-members">
+                                        <h4><i class="fas fa-users"></i> Team Members (2/5)</h4>
+                                        <div class="members-avatars">
+                                            <div class="member-avatar" data-tooltip="David Chen (Team Lead)">
+                                                <img src="img/default-avatar.png" alt="David">
+                                                <span class="role-indicator leader">L</span>
+                                            </div>
+                                            <div class="member-avatar" data-tooltip="Emma Wilson (Android Developer)">
+                                                <img src="img/default-avatar.png" alt="Emma">
+                                            </div>
+                                            <div class="member-avatar open-spot">
+                                                <i class="fas fa-question"></i>
+                                            </div>
+                                            <div class="member-avatar open-spot">
+                                                <i class="fas fa-question"></i>
+                                            </div>
+                                            <div class="member-avatar open-spot">
+                                                <i class="fas fa-question"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="team-requirements">
+                                        <h4><i class="fas fa-clipboard-list"></i> Looking for</h4>
+                                        <ul class="requirements-list">
+                                            <li><i class="fas fa-check-circle"></i> iOS Developer with Swift experience</li>
+                                            <li><i class="fas fa-check-circle"></i> AR Specialist familiar with ARKit/ARCore</li>
+                                            <li><i class="fas fa-check-circle"></i> UI/UX Designer with mobile experience</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="team-actions">
+                                        <button class="btn primary apply-btn">
+                                            <i class="fas fa-paper-plane"></i> Apply to Join
+                                        </button>
+                                        <button class="btn outline">
+                                            <i class="fas fa-envelope"></i> Contact Lead
+                                        </button>
+                                        <span class="application-deadline">
+                                            <i class="fas fa-clock"></i> Applications close: May 20
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="team-card">
+                                <div class="team-banner" style="background-image: url('img/team-banner4.jpg')">
+                                    <div class="team-status recruiting">Recruiting</div>
+                                    <div class="team-favorite">
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="team-content">
+                                    <h2>Sustainable Engineering Project</h2>
+                                    <p class="team-description">Developing sustainable solutions for campus waste management and energy conservation using IoT technology and data analysis.</p>
+                                    
+                                    <div class="team-progress">
+                                        <div class="progress-label">
+                                            <span>Team Completion</span>
+                                            <span>50%</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 50%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="team-skills">
+                                        <h4><i class="fas fa-code"></i> Required Skills</h4>
+                                        <div class="tags">
+                                            <span class="tag">Environmental Engineering</span>
+                                            <span class="tag">IoT</span>
+                                            <span class="tag">Data Analysis</span>
+                                            <span class="tag">Project Management</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="team-members">
+                                        <h4><i class="fas fa-users"></i> Team Members (3/6)</h4>
+                                        <div class="members-avatars">
+                                            <div class="member-avatar" data-tooltip="Maria Rodriguez (Team Lead)">
+                                                <img src="img/default-avatar.png" alt="Maria">
+                                                <span class="role-indicator leader">L</span>
+                                            </div>
+                                            <div class="member-avatar" data-tooltip="John Thompson (Data Scientist)">
+                                                <img src="img/default-avatar.png" alt="John">
+                                            </div>
+                                            <div class="member-avatar" data-tooltip="Aisha Khan (IoT Specialist)">
+                                                <img src="img/default-avatar.png" alt="Aisha">
+                                            </div>
+                                            <div class="member-avatar open-spot">
+                                                <i class="fas fa-question"></i>
+                                            </div>
+                                            <div class="member-avatar open-spot">
+                                                <i class="fas fa-question"></i>
+                                            </div>
+                                            <div class="member-avatar open-spot">
+                                                <i class="fas fa-question"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="team-requirements">
+                                        <h4><i class="fas fa-clipboard-list"></i> Looking for</h4>
+                                        <ul class="requirements-list">
+                                            <li><i class="fas fa-check-circle"></i> Environmental Engineer</li>
+                                            <li><i class="fas fa-check-circle"></i> Project Manager with sustainability experience</li>
+                                            <li><i class="fas fa-check-circle"></i> Hardware Engineer for sensor development</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="team-actions">
+                                        <button class="btn primary apply-btn">
+                                            <i class="fas fa-paper-plane"></i> Apply to Join
+                                        </button>
+                                        <button class="btn outline">
+                                            <i class="fas fa-envelope"></i> Contact Lead
+                                        </button>
+                                        <span class="application-deadline">
+                                            <i class="fas fa-clock"></i> Applications close: May 15
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="archived-teams" style="display: none;">
+                        <div class="teams-grid">
+                            <div class="team-card">
+                                <div class="team-banner" style="background-image: url('img/team-banner5.jpg')">
+                                    <div class="team-status completed">Completed</div>
+                                    <div class="team-favorite">
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="team-content">
+                                    <h2>Database Design Project</h2>
+                                    <p class="team-description">Designed and implemented a comprehensive database system for the university library with improved search algorithms and user tracking.</p>
+                                    
+                                    <div class="team-completion">
+                                        <div class="completion-badge">
+                                            <i class="fas fa-trophy"></i>
+                                            <span>Completed Successfully</span>
+                                        </div>
+                                        <span class="completion-date">Completed on: March 10, 2025</span>
+                                    </div>
+                                    
+                                    <div class="team-skills">
+                                        <h4><i class="fas fa-code"></i> Skills Used</h4>
+                                        <div class="tags">
+                                            <span class="tag">SQL</span>
+                                            <span class="tag">Database Design</span>
+                                            <span class="tag">Backend Development</span>
+                                            <span class="tag">API Development</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="team-members">
+                                        <h4><i class="fas fa-users"></i> Team Members (4)</h4>
+                                        <div class="members-avatars">
+                                            <div class="member-avatar" data-tooltip="You (Team Lead)">
+                                                <img src="img/default-avatar.png" alt="You">
+                                                <span class="role-indicator leader">L</span>
+                                            </div>
+                                            <div class="member-avatar" data-tooltip="Michael Brown (DB Architect)">
+                                                <img src="img/default-avatar.png" alt="Michael">
+                                            </div>
+                                            <div class="member-avatar" data-tooltip="Lisa Chen (Backend Developer)">
+                                                <img src="img/default-avatar.png" alt="Lisa">
+                                            </div>
+                                            <div class="member-avatar" data-tooltip="James Wilson (UI Developer)">
+                                                <img src="img/default-avatar.png" alt="James">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="team-actions">
+                                        <button class="btn primary">
+                                            <i class="fas fa-file-alt"></i> View Project
+                                        </button>
+                                        <button class="btn secondary">
+                                            <i class="fas fa-certificate"></i> Certificates
+                                        </button>
+                                        <button class="btn outline action-menu-btn">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="action-menu">
+                                            <a href="#"><i class="fas fa-copy"></i> Clone as New Team</a>
+                                            <a href="#"><i class="fas fa-share-alt"></i> Share Project</a>
+                                            <a href="#"><i class="fas fa-download"></i> Download Files</a>
+                                            <a href="#" class="danger"><i class="fas fa-trash-alt"></i> Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="recommended-section">
+                    <h2><i class="fas fa-lightbulb"></i> Recommended Teams for You</h2>
+                    <div class="recommendation-slider">
+                        <div class="recommendation-cards">
+                            <div class="recommendation-card">
+                                <div class="card-header">
+                                    <img src="img/team-rec1.jpg" alt="AI Ethics Research">
+                                    <div class="card-badge">98% Match</div>
+                                </div>
+                                <div class="card-body">
+                                    <h3>AI Ethics Research</h3>
+                                    <p>Exploring ethical implications of AI in social media and developing guidelines</p>
+                                    <div class="mini-tags">
+                                        <span class="mini-tag">AI</span>
+                                        <span class="mini-tag">Ethics</span>
+                                        <span class="mini-tag">Research</span>
+                                    </div>
+                                    <button class="btn secondary small">View Team</button>
+                                </div>
+                            </div>
+                            
+                            <div class="recommendation-card">
+                                <div class="card-header">
+                                    <img src="img/team-rec2.jpg" alt="Game Development">
+                                    <div class="card-badge">85% Match</div>
+                                </div>
+                                <div class="card-body">
+                                    <h3>Game Development</h3>
+                                    <p>Creating an educational game to teach programming fundamentals</p>
+                                    <div class="mini-tags">
+                                        <span class="mini-tag">Unity</span>
+                                        <span class="mini-tag">C#</span>
+                                        <span class="mini-tag">Gaming</span>
+                                    </div>
+                                    <button class="btn secondary small">View Team</button>
+                                </div>
+                            </div>
+                            
+                            <div class="recommendation-card">
+                                <div class="card-header">
+                                    <img src="img/team-rec3.jpg" alt="Data Visualization">
+                                    <div class="card-badge">92% Match</div>
+                                </div>
+                                <div class="card-body">
+                                    <h3>Data Visualization</h3>
+                                    <p>Visualizing complex university research data for public understanding</p>
+                                    <div class="mini-tags">
+                                        <span class="mini-tag">D3.js</span>
+                                        <span class="mini-tag">Python</span>
+                                        <span class="mini-tag">Design</span>
+                                    </div>
+                                    <button class="btn secondary small">View Team</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="slider-btn prev">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="slider-btn next">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- Modal for Creating a Team -->
+            <div class="modal" id="create-team-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2><i class="fas fa-users"></i> Create a New Team</h2>
+                        <button class="close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="create-team-form" class="modal-form">
+                            <div class="form-group">
+                                <label for="team-name">Team Name</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-users input-icon"></i>
+                                    <input type="text" id="team-name" placeholder="Enter team name" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="team-description">Description</label>
+                                <textarea id="team-description" rows="3" placeholder="Describe your team's purpose and goals" required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="team-category">Category</label>
+                                <div class="select-wrapper">
+                                    <select id="team-category" required>
+                                        <option value="">Select a category</option>
+                                        <option value="web">Web Development</option>
+                                        <option value="mobile">Mobile Development</option>
+                                        <option value="data">Data Science</option>
+                                        <option value="ai">Artificial Intelligence</option>
+                                        <option value="design">Design</option>
+                                        <option value="research">Research</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down select-icon"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="form-columns">
+                                <div class="form-group">
+                                    <label for="team-duration">Project Duration</label>
+                                    <div class="select-wrapper">
+                                        <select id="team-duration" required>
+                                            <option value="">Select duration</option>
+                                            <option value="short">Short (< 1 month)</option>
+                                            <option value="medium">Medium (1-3 months)</option>
+                                            <option value="long">Long (> 3 months)</option>
+                                        </select>
+                                        <i class="fas fa-chevron-down select-icon"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="team-max-members">Maximum Members</label>
+                                    <div class="input-wrapper">
+                                        <i class="fas fa-user-friends input-icon"></i>
+                                        <input type="number" id="team-max-members" min="2" max="10" value="5" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="team-skills">Required Skills (comma separated)</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-code input-icon"></i>
+                                    <input type="text" id="team-skills" placeholder="e.g., JavaScript, UI Design, Python">
+                                </div>
+                                <div id="team-skills-tags" class="tags-container"></div>
+                            </div>
+                            
+                            <div class="form-columns">
+                                <div class="form-group">
+                                    <label for="team-visibility">Team Visibility</label>
+                                    <div class="select-wrapper">
+                                        <select id="team-visibility" required>
+                                            <option value="public">Public - Anyone can find and apply</option>
+                                            <option value="private">Private - By invitation only</option>
+                                        </select>
+                                        <i class="fas fa-chevron-down select-icon"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="team-application-deadline">Application Deadline</label>
+                                    <div class="input-wrapper">
+                                        <i class="fas fa-calendar-alt input-icon"></i>
+                                        <input type="date" id="team-application-deadline">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-footer">
+                                <button type="button" class="btn outline cancel-btn">Cancel</button>
+                                <button type="submit" class="btn primary">Create Team</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal for Joining a Team -->
+            <div class="modal" id="join-team-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2><i class="fas fa-sign-in-alt"></i> Join a Team by Code</h2>
+                        <button class="close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="join-team-form" class="modal-form">
+                            <div class="code-input-container">
+                                <label for="team-code">Enter the team invitation code</label>
+                                <div class="code-input-wrapper">
+                                    <input type="text" id="team-code" maxlength="6" placeholder="XXXXXX" class="code-input" required>
+                                </div>
+                                <small>The team code should be 6 characters long</small>
+                            </div>
+                            
+                            <div class="form-footer">
+                                <button type="button" class="btn outline cancel-btn">Cancel</button>
+                                <button type="submit" class="btn primary">Join Team</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Toast Notifications -->
+            <div class="toast-container" id="toast-container"></div>
+        </main>
+    </div>
+    
+    <script src="js/teams.js"></script>
+</body>
+</html>

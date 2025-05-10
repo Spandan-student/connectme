@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - StudentConnect</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% comment %} <link rel="stylesheet" href="{% static 'css/dashboard.css' %}"> {% endcomment %}
+    <link rel="stylesheet" href="{% static 'css/modern-dashboard.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <a href="{% url "index" %}"><span>StudentConnect</span></a>
+                </div>
+                <button class="mobile-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="profile-summary">
+                <div class="profile-image">
+                    <img id="user-avatar" src="{{ user_profile.userimage.url }}" alt="Profile picture">
+                    <span class="status-indicator online"></span>
+                </div>
+                <h3 id="user-name">{{ username }} </h3>
+                <p id="user-major">Major & Year</p>
+                <div class="profile-actions">
+                    <a href="profile.html" class="profile-btn">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </a>
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="active">
+                    <a href="{% url "dashboard" %}">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url "teampage" %}">
+                        <i class="fas fa-users"></i>
+                        <span>Teams</span>
+                        <span class="badge">2</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-comment-alt"></i>
+                        <span>Messages</span>
+                        <span class="badge alert">3</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-search"></i>
+                        <span>Find Students</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-book"></i>
+                        <span>Resources</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li class="logout">
+                    <a href="{% url "logout" %}" id="logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <p>© 2025 StudentConnect</p>
+                <div class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-switch">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <header class="content-header">
+                <div class="left-section">
+                    <button class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1>My Dashboard</h1>
+                </div>
+                
+                <div class="right-section">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search for students, teams, or projects...">
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="header-actions">
+                        <button class="action-btn">
+                            <i class="fas fa-plus-circle"></i>
+                        </button>
+                        <div class="notifications dropdown">
+                            <button class="notification-btn dropdown-toggle">
+                                <i class="fas fa-bell"></i>
+                                <span class="badge">3</span>
+                            </button>
+                            <div class="dropdown-menu notification-menu">
+                                <div class="dropdown-header">
+                                    <h3>Notifications</h3>
+                                    <a href="#">Mark all as read</a>
+                                </div>
+                                <div class="dropdown-items">
+                                    <a href="#" class="notification-item unread">
+                                        <div class="notification-icon team">
+                                            <i class="fas fa-users"></i>
+                                        </div>
+                                        <div class="notification-content">
+                                            <p><strong>Team Invitation</strong>: You've been invited to join the "Mobile App Development" team</p>
+                                            <span class="notification-time">2 hours ago</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="notification-item unread">
+                                        <div class="notification-icon message">
+                                            <i class="fas fa-comment-alt"></i>
+                                        </div>
+                                        <div class="notification-content">
+                                            <p><strong>New Message</strong>: Alex Johnson sent you a message about your project</p>
+                                            <span class="notification-time">5 hours ago</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="notification-item unread">
+                                        <div class="notification-icon event">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </div>
+                                        <div class="notification-content">
+                                            <p><strong>Upcoming Event</strong>: Hackathon: Build for Good starts tomorrow</p>
+                                            <span class="notification-time">1 day ago</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="dropdown-footer">
+                                    <a href="#">View all notifications</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-menu dropdown">
+                            <button class="user-menu-btn dropdown-toggle">
+                                <img src="{{ user_profile.userimage.url }}" alt="User">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a href="profile.html"><i class="fas fa-user"></i> My Profile</a>
+                                <a href="#"><i class="fas fa-cog"></i> Account Settings</a>
+                                <a href="#"><i class="fas fa-question-circle"></i> Help & Support</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" id="logout-menu"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <section class="welcome-banner">
+                <div class="welcome-content">
+                    <h2>Welcome back, <span id="welcome-name">{{ name }}</span>!</h2>
+                    <p><span id="current-date">{{ last_login }}</span></p>
+                </div>
+                <div class="quick-actions">
+                    <button class="action-card">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Find Peers</span>
+                    </button>
+                    <button class="action-card">
+                        <i class="fas fa-users"></i>
+                        <span>Create Team</span>
+                    </button>
+                    <button class="action-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Start Project</span>
+                    </button>
+                    <button class="action-card">
+                        <i class="fas fa-chart-line"></i>
+                        <span>My Progress</span>
+                    </button>
+                </div>
+            </section>
+            
+            <div class="dashboard-grid">
+                <section class="dashboard-section recommended-students">
+                    <div class="section-header">
+                        <h2>Recommended Peers</h2>
+                        <a href="#" class="section-action">View All <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                    <div class="card-container">
+                        <div class="card student-card">
+                            <div class="student-header">
+                                <div class="student-avatar">
+                                    <img src="img/student1.jpg" alt="Student">
+                                    <span class="status-dot online"></span>
+                                </div>
+                                <div class="student-actions">
+                                    <button class="action-icon" title="Message">
+                                        <i class="fas fa-comment"></i>
+                                    </button>
+                                    <button class="action-icon" title="Add to Team">
+                                        <i class="fas fa-user-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="student-info">
+                                <h3>Alex Johnson</h3>
+                                <p class="student-major">Computer Science, 3rd Year</p>
+                                <div class="match-score">
+                                    <span class="match-label">Match</span>
+                                    <div class="match-meter">
+                                        <div class="match-fill" style="width:92%"></div>
+                                    </div>
+                                    <span class="match-percent">92%</span>
+                                </div>
+                                <div class="tags">
+                                    <span class="tag">Python</span>
+                                    <span class="tag">Machine Learning</span>
+                                    <span class="tag">Data Science</span>
+                                </div>
+                                <button class="btn primary connect-btn">
+                                    <i class="fas fa-plus"></i> Connect
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="card student-card">
+                            <div class="student-header">
+                                <div class="student-avatar">
+                                    <img src="img/student2.jpg" alt="Student">
+                                    <span class="status-dot"></span>
+                                </div>
+                                <div class="student-actions">
+                                    <button class="action-icon" title="Message">
+                                        <i class="fas fa-comment"></i>
+                                    </button>
+                                    <button class="action-icon" title="Add to Team">
+                                        <i class="fas fa-user-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="student-info">
+                                <h3>Emily Wong</h3>
+                                <p class="student-major">UX Design, 2nd Year</p>
+                                <div class="match-score">
+                                    <span class="match-label">Match</span>
+                                    <div class="match-meter">
+                                        <div class="match-fill" style="width:87%"></div>
+                                    </div>
+                                    <span class="match-percent">87%</span>
+                                </div>
+                                <div class="tags">
+                                    <span class="tag">UI Design</span>
+                                    <span class="tag">Figma</span>
+                                    <span class="tag">User Research</span>
+                                </div>
+                                <button class="btn primary connect-btn">
+                                    <i class="fas fa-plus"></i> Connect
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="card student-card">
+                            <div class="student-header">
+                                <div class="student-avatar">
+                                    <img src="img/student3.jpg" alt="Student">
+                                    <span class="status-dot online"></span>
+                                </div>
+                                <div class="student-actions">
+                                    <button class="action-icon" title="Message">
+                                        <i class="fas fa-comment"></i>
+                                    </button>
+                                    <button class="action-icon" title="Add to Team">
+                                        <i class="fas fa-user-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="student-info">
+                                <h3>Marcus Chen</h3>
+                                <p class="student-major">Computer Engineering, 4th Year</p>
+                                <div class="match-score">
+                                    <span class="match-label">Match</span>
+                                    <div class="match-meter">
+                                        <div class="match-fill" style="width:78%"></div>
+                                    </div>
+                                    <span class="match-percent">78%</span>
+                                </div>
+                                <div class="tags">
+                                    <span class="tag">C++</span>
+                                    <span class="tag">Hardware</span>
+                                    <span class="tag">IoT</span>
+                                </div>
+                                <button class="btn primary connect-btn">
+                                    <i class="fas fa-plus"></i> Connect
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="dashboard-section my-teams">
+                    <div class="section-header">
+                        <h2>My Teams</h2>
+                        <a href="teams.html" class="section-action">View All <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                    <div class="teams-container">
+                        {% for team_name in user_teams %}
+                        <div class="card team-card">
+                            <div class="team-banner" style="background-image: url('img/team-banner1.jpg')">
+                                <div class="team-info-overlay">
+                                    <h3>{{ team_name }}</h3>
+                                    <span class="team-role">Team Member</span>
+                                </div>
+                            </div>
+                            <div class="team-content">
+                                <p class="team-description">Building a student connection platform that allows university students to find peers with similar interests</p>
+                                <div class="progress-container">
+                                    <div class="progress-header">
+                                        <span>Progress</span>
+                                        <span>75%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width:75%"></div>
+                                    </div>
+                                </div>
+                                <div class="team-members">
+                                    <div class="member-avatars">
+                                        <img src="img/default-avatar.png" alt="Team member" title="You">
+                                        <img src="img/student1.jpg" alt="Team member" title="Alex Johnson">
+                                        <img src="img/student2.jpg" alt="Team member" title="Emily Wong">
+                                        <img src="img/student4.jpg" alt="Team member" title="Sarah Lee">
+                                        <span class="more-members">+1</span>
+                                    </div>
+                                </div>
+                                <div class="team-actions">
+                                    <button class="btn outline">Team Chat</button>
+                                    <button class="btn primary">Workspace</button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        
+                        <div class="card team-card">
+                            <div class="team-banner" style="background-image: url('img/team-banner2.jpg')">
+                                <div class="team-info-overlay">
+                                    <h3>Machine Learning</h3>
+                                    <span class="team-role">Team Member</span>
+                                </div>
+                            </div>
+                            <div class="team-content">
+                                <p class="team-description">A group dedicated to learning machine learning concepts and applying them to real-world problems</p>
+                                <div class="progress-container">
+                                    <div class="progress-header">
+                                        <span>Progress</span>
+                                        <span>45%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width:45%"></div>
+                                    </div>
+                                </div>
+                                <div class="team-members">
+                                    <div class="member-avatars">
+                                        <img src="img/student5.jpg" alt="Team member" title="Alex Wong">
+                                        <img src="img/default-avatar.png" alt="Team member" title="You">
+                                        <img src="img/student6.jpg" alt="Team member" title="Priya Patel">
+                                    </div>
+                                </div>
+                                <div class="team-actions">
+                                    <button class="btn outline">Team Chat</button>
+                                    <button class="btn primary">Workspace</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card team-card">
+                            <div class="team-banner" style="background-image: url('img/team-banner2.jpg')">
+                                <div class="team-info-overlay">
+                                    <h3>Machine Learning</h3>
+                                    <span class="team-role">Team Member</span>
+                                </div>
+                            </div>
+                            <div class="team-content">
+                                <p class="team-description">A group dedicated to learning machine learning concepts and applying them to real-world problems</p>
+                                <div class="progress-container">
+                                    <div class="progress-header">
+                                        <span>Progress</span>
+                                        <span>45%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width:45%"></div>
+                                    </div>
+                                </div>
+                                <div class="team-members">
+                                    <div class="member-avatars">
+                                        <img src="img/student5.jpg" alt="Team member" title="Alex Wong">
+                                        <img src="img/default-avatar.png" alt="Team member" title="You">
+                                        <img src="img/student6.jpg" alt="Team member" title="Priya Patel">
+                                    </div>
+                                </div>
+                                <div class="team-actions">
+                                    <button class="btn outline">Team Chat</button>
+                                    <button class="btn primary">Workspace</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="dashboard-section project-ideas">
+                    <div class="section-header">
+                        <h2>Project Ideas</h2>
+                        <button class="btn secondary">Add Idea</button>
+                    </div>
+                    <div class="ideas-container">
+                        <div class="card idea-card">
+                            <div class="idea-header">
+                                <h3>AR Campus Navigation App</h3>
+                                <span class="idea-status">Looking for Team</span>
+                            </div>
+                            <p class="idea-description">Help students navigate campus using AR technology with real-time updates and indoor mapping</p>
+                            <div class="idea-meta">
+                                <div class="tags">
+                                    <span class="tag">Mobile Dev</span>
+                                    <span class="tag">AR/VR</span>
+                                    <span class="tag">UI/UX</span>
+                                </div>
+                                <div class="interest-level">
+                                    <span class="interest-count">
+                                        <i class="fas fa-user"></i> 12 interested
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="idea-actions">
+                                <button class="btn outline small">
+                                    <i class="fas fa-share"></i> Share
+                                </button>
+                                <button class="btn secondary small">
+                                    <i class="fas fa-heart"></i> Interested
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="card idea-card">
+                            <div class="idea-header">
+                                <h3>Student Marketplace Platform</h3>
+                                <span class="idea-status">Looking for Team</span>
+                            </div>
+                            <p class="idea-description">Create a platform for students to buy and sell used textbooks, supplies, and services</p>
+                            <div class="idea-meta">
+                                <div class="tags">
+                                    <span class="tag">Web Dev</span>
+                                    <span class="tag">E-commerce</span>
+                                    <span class="tag">Database</span>
+                                </div>
+                                <div class="interest-level">
+                                    <span class="interest-count">
+                                        <i class="fas fa-user"></i> 8 interested
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="idea-actions">
+                                <button class="btn outline small">
+                                    <i class="fas fa-share"></i> Share
+                                </button>
+                                <button class="btn secondary small">
+                                    <i class="fas fa-heart"></i> Interested
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="card idea-card">
+                            <div class="idea-header">
+                                <h3>Virtual Study Group Coordinator</h3>
+                                <span class="idea-status new">New Idea</span>
+                            </div>
+                            <p class="idea-description">An app that helps students form virtual study groups based on courses and availability</p>
+                            <div class="idea-meta">
+                                <div class="tags">
+                                    <span class="tag">Web Dev</span>
+                                    <span class="tag">Scheduling</span>
+                                    <span class="tag">Algorithm</span>
+                                </div>
+                                <div class="interest-level">
+                                    <span class="interest-count">
+                                        <i class="fas fa-user"></i> 5 interested
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="idea-actions">
+                                <button class="btn outline small">
+                                    <i class="fas fa-share"></i> Share
+                                </button>
+                                <button class="btn secondary small">
+                                    <i class="fas fa-heart"></i> Interested
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="dashboard-section events-calendar">
+                    <div class="section-header">
+                        <h2>Upcoming Events</h2>
+                        <a href="#" class="section-action">View All <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                    <div class="events-container">
+                        <div class="card event-card highlight">
+                            <div class="event-date">
+                                <div class="date-content">
+                                    <span class="month">MAY</span>
+                                    <span class="day">15</span>
+                                </div>
+                            </div>
+                            <div class="event-details">
+                                <h3>Hackathon: Build for Good</h3>
+                                <div class="event-meta">
+                                    <p>
+                                        <i class="fas fa-clock"></i> 9:00 AM - 9:00 PM
+                                    </p>
+                                    <p>
+                                        <i class="fas fa-map-marker-alt"></i> University Main Hall
+                                    </p>
+                                </div>
+                                <p class="event-description">Join us for a 12-hour hackathon focused on building solutions for social good!</p>
+                                <div class="event-actions">
+                                    <button class="btn outline">More Info</button>
+                                    <button class="btn primary">RSVP</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card event-card">
+                            <div class="event-date">
+                                <div class="date-content">
+                                    <span class="month">MAY</span>
+                                    <span class="day">22</span>
+                                </div>
+                            </div>
+                            <div class="event-details">
+                                <h3>Tech Industry Networking</h3>
+                                <div class="event-meta">
+                                    <p>
+                                        <i class="fas fa-clock"></i> 5:00 PM - 7:00 PM
+                                    </p>
+                                    <p>
+                                        <i class="fas fa-map-marker-alt"></i> Innovation Center
+                                    </p>
+                                </div>
+                                <p class="event-description">Network with representatives from top tech companies and startups</p>
+                                <div class="event-actions">
+                                    <button class="btn outline">More Info</button>
+                                    <button class="btn primary">RSVP</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card event-card">
+                            <div class="event-date">
+                                <div class="date-content">
+                                    <span class="month">MAY</span>
+                                    <span class="day">28</span>
+                                </div>
+                            </div>
+                            <div class="event-details">
+                                <h3>Web Development Workshop</h3>
+                                <div class="event-meta">
+                                    <p>
+                                        <i class="fas fa-clock"></i> 3:00 PM - 5:30 PM
+                                    </p>
+                                    <p>
+                                        <i class="fas fa-map-marker-alt"></i> Tech Building, Room 305
+                                    </p>
+                                </div>
+                                <p class="event-description">Learn modern web development techniques and frameworks</p>
+                                <div class="event-actions">
+                                    <button class="btn outline">More Info</button>
+                                    <button class="btn primary">RSVP</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <section class="stats-section">
+                <div class="card stats-card">
+                    <div class="stat-item">
+                        <div class="stat-icon connections">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h4>Connections</h4>
+                            <p class="stat-number">24</p>
+                            <p class="stat-change positive">+3 this week</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon teams">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h4>Active Teams</h4>
+                            <p class="stat-number">2</p>
+                            <p class="stat-change">No change</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon projects">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h4>Projects</h4>
+                            <p class="stat-number">3</p>
+                            <p class="stat-change positive">+1 this month</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon skills">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h4>Skills Listed</h4>
+                            <p class="stat-number">12</p>
+                            <p class="stat-change positive">+2 this month</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Chat widget -->
+    <div class="chat-widget">
+        <div class="chat-header">
+            <h3>Messages</h3>
+            <span class="chat-count">3</span>
+            <button class="chat-toggle">
+                <i class="fas fa-chevron-up"></i>
+            </button>
+        </div>
+        <div class="chat-body">
+            <div class="chat-list">
+                <div class="chat-item unread">
+                    <img src="img/student1.jpg" alt="Alex Johnson" class="chat-avatar">
+                    <div class="chat-content">
+                        <h4>Alex Johnson</h4>
+                        <p>Hey! Are we meeting for the project today?</p>
+                    </div>
+                    <div class="chat-meta">
+                        <span class="chat-time">2h</span>
+                        <span class="chat-unread">1</span>
+                    </div>
+                </div>
+                <div class="chat-item unread">
+                    <img src="img/student2.jpg" alt="Emily Wong" class="chat-avatar">
+                    <div class="chat-content">
+                        <h4>Emily Wong</h4>
+                        <p>I just sent you the design files for review</p>
+                    </div>
+                    <div class="chat-meta">
+                        <span class="chat-time">5h</span>
+                        <span class="chat-unread">1</span>
+                    </div>
+                </div>
+                <div class="chat-item unread">
+                    <img src="img/student5.jpg" alt="Alex Wong" class="chat-avatar">
+                    <div class="chat-content">
+                        <h4>Alex Wong</h4>
+                        <p>Are you coming to the ML study session?</p>
+                    </div>
+                    <div class="chat-meta">
+                        <span class="chat-time">1d</span>
+                        <span class="chat-unread">1</span>
+                    </div>
+                </div>
+                <div class="chat-item">
+                    <img src="img/student6.jpg" alt="Priya Patel" class="chat-avatar">
+                    <div class="chat-content">
+                        <h4>Priya Patel</h4>
+                        <p>Thanks for your help with the Python assignment!</p>
+                    </div>
+                    <div class="chat-meta">
+                        <span class="chat-time">2d</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudentConnect - Connect with University Peers</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/auth.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>StudentConnect</h1>
+            <p>Connect with like-minded university peers</p>
+        </header>
+        
+        <main>
+            <section class="hero">
+                <h2>Find Your Perfect Team</h2>
+                <p>Connect with students who share your interests and skills to collaborate on amazing projects</p>
+                <div class="cta-buttons">
+                    <a href="#login-form" class="btn primary">Login</a>
+                    <a href="{% url "registration" %}" class="btn secondary">Register</a>
+                </div>
+            </section>
+            
+            <section class="features">
+                <div class="feature">
+                    <h3>Connect</h3>
+                    <p>Find students with similar interests and complementary skills</p>
+                </div>
+                <div class="feature">
+                    <h3>Collaborate</h3>
+                    <p>Form teams and work together on university projects</p>
+                </div>
+                <div class="feature">
+                    <h3>Create</h3>
+                    <p>Build your portfolio and showcase your achievements</p>
+                </div>
+            </section>
+            
+            <section id="login-form" class="auth-form">
+                <h2>Login</h2>
+                <form id="login">
+                    <div class="form-group">
+                        <label for="email">University Email</label>
+                        <input type="email" id="email" placeholder="youremail@university.edu" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <button type="submit" class="btn primary">Login</button>
+                </form>
+                <p>Don't have an account? <a href="register.html">Register here</a></p>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 StudentConnect. All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <script src="{% static 'js/auth.js' %}"></script>
+</body>
+</html>
