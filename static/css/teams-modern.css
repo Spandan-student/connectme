@@ -1,0 +1,90 @@
+/* Modern Teams Page Styles */
+:root {
+    --primary-gradient: linear-gradient(135deg, #4285f4, #34a853);
+    --secondary-gradient: linear-gradient(135deg, #fbbc05, #ea4335);
+    --success-gradient: linear-gradient(135deg, #34a853, #4285f4);
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --hover-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --border-radius-lg: 12px;
+    --border-radius-md: 8px;
+    --border-radius-sm: 4px;
+    --sidebar-width: 260px;
+    --header-height: 70px;
+}
+
+/* Layout */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f5f7fa;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background-color: white;
+    border-right: 1px solid #eaedf3;
+    padding: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    overflow-y: auto;
+}
+
+/* Content */
+.content {
+    flex-grow: 1;
+    margin-left: var(--sidebar-width);
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+/* Team Grid */
+.teams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.team-card {
+    width: 100%;
+    border: 1px solid #eaedf3;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: var(--hover-transition);
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+/* Recommended Section */
+.recommendation-slider {
+    position: relative;
+}
+
+.recommendation-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.recommendation-card {
+    width: 100%;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: var(--hover-transition);
+    border: 1px solid #eaedf3;
+}
+
+.slider-btn {
+    display: none; /* Hide these as we're using grid now */
+}

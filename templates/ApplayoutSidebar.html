@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - StudentConnect</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% comment %} <link rel="stylesheet" href="{% static 'css/dashboard.css' %}"> {% endcomment %}
+    <link rel="stylesheet" href="{% static 'css/modern-dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/teams-modern.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <a href="{% url "index" %}"><span>StudentConnect</span></a>
+                </div>
+                <button class="mobile-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="profile-summary">
+                <div class="profile-image">
+                    <img id="user-avatar" src="{{ user_profile.userimage.url }}" alt="Profile picture">
+                    <span class="status-indicator online"></span>
+                </div>
+                <h3 id="user-name">{{ username }} </h3>
+                <p id="user-major">Major & Year</p>
+                <div class="profile-actions">
+                    <a href="{% url "profile" %}" class="profile-btn">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </a>
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="{% if request.path == '/dashboard/' %}active{% endif %}">
+                    <a href="{% url "dashboard" %}">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="{% if request.path == '/teampage/' %}active{% endif %}">
+                    <a href="{% url "teampage" %}">
+                        <i class="fas fa-users"></i>
+                        <span>Teams</span>
+                        <span class="badge">2</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-comment-alt"></i>
+                        <span>Messages</span>
+                        <span class="badge alert">3</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-search"></i>
+                        <span>Find Students</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-book"></i>
+                        <span>Resources</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li class="logout">
+                    <a href="{% url "logout" %}" id="logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <p>© 2025 StudentConnect</p>
+                <div class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-switch">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+        </nav>
+
+        {% block content %}
+        
+        {% endblock content %}
+</body>
+</html>

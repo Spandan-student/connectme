@@ -54,3 +54,7 @@ class personal_team_models(models.Model):
 
     def __str__(self):
         return self.team_name
+
+class profile_score_models(models.Model):
+    university_email = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_score=models.CharField(max_length=255,null=False)
