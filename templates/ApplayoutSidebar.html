@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/modern-dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/teams-modern.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile-form.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -34,8 +35,8 @@
                     {% endif %}
                     <span class="status-indicator online"></span>
                 </div>
-                <h3 id="user-name">{{ username }} </h3>
-                <p id="user-major">Major & Year</p>
+                <h3 id="user-name">{{ user_profile.username }} </h3>
+                <p id="user-major">Major: {{ user_profile.userdept }}  & Score: {{ users_score.user_score }}</p>
                 <div class="profile-actions">
                     <a href="{% url "profile" %}" class="profile-btn">
                         <i class="fas fa-edit"></i> Edit Profile

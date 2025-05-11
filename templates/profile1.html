@@ -1,0 +1,136 @@
+{% extends "ApplayoutSidebar.html" %}
+{% load static %}
+
+{% comment %} {% extends "ApplayoutSidebar.html" %}
+{% load static %}
+
+        {% block content %}
+        <div style="position: absolute;right: 100px;">
+        <form method="POST" action="{% url "profile" %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label><input type="text" name="username" id="username">User Name:</label><br>
+            <label><input type="text" name="userdept" id="userdept">User Dept:</label><br>
+            <label><input type="text" name="userAge" id="userAge">User Age:</label><br>
+            <label><input type="date" name="userDOB" id="userDOB">User DOB:</label><br>
+            <label><input type="file" accept="image/*" name="userimage" id="userimage">User Image:</label><br>
+            <label><input type="textarea" name="userbio" id="userbio">User Bio:</label><br>
+            <label><input type="text" name="skills" id="skills">User Skills:</label><br>
+            <label><input type="text" name="hobbies" id="hobbies">User Hobbies:</label><br>
+            <label><input type="text" name="sleep_schedule" id="sleep_schedule">User Sleep Schedule:</label><br>
+            <label><input type="text" name="userCGPA" id="userCGPA">User CGPA:</label><br>
+            <label><input type="text" name="hackathonNo" id="hackathonNo">User Hackathon:</label><br>
+            <label><input type="text" name="leetcodeNo" id="leetcodeNo">User Leetcode:</label><br>
+            <label><input type="text" name="contestNo" id="contestNo">User Contest:</label><br>
+            <label><input type="date" name="yearofaddmission" id="yearofaddmission">User Admission:</label><br>
+            <label><input type="date" name="passoutyear" id="passoutyear">User Passout:</label><br>
+            <button type="submit">Submit</button>
+        </form>
+        <br>
+    </div>
+        {% endblock content %} {% endcomment %}
+
+        
+        {% block content %}
+        <div class="profile-form-container">
+            <h2>Complete Your Profile</h2>
+            <form method="POST" action="{% url 'profile' %}" enctype="multipart/form-data" class="profile-form">
+                {% csrf_token %}
+                
+                <h3 class="form-section-title">Personal Information</h3>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" id="username" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="userdept">Department:</label>
+                        <input type="text" name="userdept" id="userdept" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userAge">Age:</label>
+                        <input type="text" name="userAge" id="userAge" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userDOB">Date of Birth:</label>
+                    <input type="date" name="userDOB" id="userDOB" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userimage">Profile Picture:</label>
+                    <input type="file" accept="image/*" name="userimage" id="userimage">
+                    <small>Choose a profile picture (optional)</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userbio">About You:</label>
+                    <textarea name="userbio" id="userbio" placeholder="Tell us something about yourself..."></textarea>
+                </div>
+                
+                <h3 class="form-section-title">Skills & Interests</h3>
+                <div class="form-group">
+                    <label for="skills">Skills:</label>
+                    <input type="text" name="skills" id="skills" required placeholder="e.g., AI, ML, UIUX">
+                    <small>Choose from: AIML, AI, ML, UIUX, Backend, Frontend</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="hobbies">Hobbies:</label>
+                    <input type="text" name="hobbies" id="hobbies" placeholder="e.g., Reading, Gaming, Hiking">
+                </div>
+                
+                <div class="form-group">
+                    <label for="sleep_schedule">Sleep Schedule:</label>
+                    <input type="text" name="sleep_schedule" id="sleep_schedule" required placeholder="e.g., EarlyBirds, NightOwl, Any">
+                    <small>Choose from: EarlyBirds, NightOwl, Any</small>
+                </div>
+                
+                <h3 class="form-section-title">Academic Information</h3>
+                <div class="form-group">
+                    <label for="userCGPA">CGPA:</label>
+                    <input type="text" name="userCGPA" id="userCGPA" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hackathonNo">Number of Hackathons:</label>
+                        <input type="text" name="hackathonNo" id="hackathonNo" value="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="leetcodeNo">LeetCode Problems Solved:</label>
+                        <input type="text" name="leetcodeNo" id="leetcodeNo" value="0">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contestNo">Number of Contests:</label>
+                    <input type="text" name="contestNo" id="contestNo" value="0">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="yearofaddmission">Year of Admission:</label>
+                        <input type="date" name="yearofaddmission" id="yearofaddmission" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="passoutyear">Expected Year of Graduation:</label>
+                        <input type="date" name="passoutyear" id="passoutyear" required>
+                    </div>
+                </div>
+                
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="agreement" required>
+                    <label for="agreement">I confirm all information provided is accurate</label>
+                </div>
+                
+                <button type="submit">Complete Profile</button>
+            </form>
+        </div>
+        
+        <link rel="stylesheet" href="{% static 'css/profile-form.css' %}">
+        {% endblock content %}

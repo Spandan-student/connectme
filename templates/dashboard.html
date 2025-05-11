@@ -87,7 +87,7 @@
             
             <section class="welcome-banner">
                 <div class="welcome-content">
-                    <h2>Welcome back, <span id="welcome-name">{{ name }}</span>!</h2>
+                    <h2>Welcome back, <span id="welcome-name">{{ user_profile.username }}</span>!</h2>
                     <p><span id="current-date">{{ last_login }}</span></p>
                 </div>
                 <div class="quick-actions">
@@ -146,7 +146,7 @@
                                 <div class="tags">
                                     {% for skill in recommended_connections_skillsdetails %}
                                     <span class="tag">Python</span>
-                                    <span class="tag">{{ skill.skills }}</span>
+                                    <span class="tag">{{ skill }}</span>
                                     <span class="tag">Data Science</span>
                                     {% endfor %}
                                 </div>
