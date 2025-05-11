@@ -53,8 +53,15 @@ class personal_team_models(models.Model):
     is_open = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.team_name
+        return self.team_project_topic
 
 class profile_score_models(models.Model):
     university_email = models.ForeignKey(User, on_delete=models.CASCADE)
     user_score=models.CharField(max_length=255,null=False)
+
+class personal_connections_models(models.Model):
+    university_email = models.ForeignKey(User, on_delete=models.CASCADE, related_name='connections_owner')
+    connections = models.ManyToManyField(User, related_name='connections_made')
+
+    def __str__(self):
+        return f"{self.university_email.username}'s connections"

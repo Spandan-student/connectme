@@ -117,10 +117,11 @@
                         <a href="#" class="section-action">View All <i class="fas fa-chevron-right"></i></a>
                     </div>
                     <div class="card-container">
+                        {% for i in recommended_connections_personaldetails %}
                         <div class="card student-card">
                             <div class="student-header">
                                 <div class="student-avatar">
-                                    <img src="img/student1.jpg" alt="Student">
+                                    <img src="{{ i.userimage.url }}" alt="Student">
                                     <span class="status-dot online"></span>
                                 </div>
                                 <div class="student-actions">
@@ -133,8 +134,8 @@
                                 </div>
                             </div>
                             <div class="student-info">
-                                <h3>Alex Johnson</h3>
-                                <p class="student-major">Computer Science, 3rd Year</p>
+                                <h3>{{ i.username }}</h3>
+                                <p class="student-major">{{ i.userdept }}, 3rd Year</p>
                                 <div class="match-score">
                                     <span class="match-label">Match</span>
                                     <div class="match-meter">
@@ -143,15 +144,18 @@
                                     <span class="match-percent">92%</span>
                                 </div>
                                 <div class="tags">
+                                    {% for skill in recommended_connections_skillsdetails %}
                                     <span class="tag">Python</span>
-                                    <span class="tag">Machine Learning</span>
+                                    <span class="tag">{{ skill.skills }}</span>
                                     <span class="tag">Data Science</span>
+                                    {% endfor %}
                                 </div>
-                                <button class="btn primary connect-btn">
+                                <a href="{% url "connect" %}"><button class="btn primary connect-btn">
                                     <i class="fas fa-plus"></i> Connect
-                                </button>
+                                </button></a>
                             </div>
                         </div>
+                        {% endfor %}
                         
                         <div class="card student-card">
                             <div class="student-header">
@@ -230,12 +234,12 @@
                 <section class="dashboard-section my-teams">
                     <div class="section-header">
                         <h2>My Teams</h2>
-                        <a href="teams.html" class="section-action">View All <i class="fas fa-chevron-right"></i></a>
+                        <a href="{% url "teampage" %}" class="section-action">View All <i class="fas fa-chevron-right"></i></a>
                     </div>
                     <div class="teams-container">
                         {% for team_name in user_teams %}
                         <div class="card team-card">
-                            <div class="team-banner" style="background-image: url('img/team-banner1.jpg')">
+                            <div class="team-banner" style="background-image: url('{% static 'images/banner1.jpg' %}')">
                                 <div class="team-info-overlay">
                                     <h3>{{ team_name }}</h3>
                                     <span class="team-role">Team Member</span>

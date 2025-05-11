@@ -27,7 +27,11 @@
             
             <div class="profile-summary">
                 <div class="profile-image">
-                    <img id="user-avatar" src="{{ user_profile.userimage.url }}" alt="Profile picture">
+                    {% if user_profile.userimage.url %}
+                        <img id="user-avatar" src="{{ user_profile.userimage.url }}" alt="Profile picture">
+                    {% else %}
+                        <img id="user-avatar" src="{% static 'images/avatar.png' %}" alt="Profile picture">
+                    {% endif %}
                     <span class="status-indicator online"></span>
                 </div>
                 <h3 id="user-name">{{ username }} </h3>

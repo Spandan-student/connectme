@@ -49,11 +49,12 @@
                             </button>
                         </div>
                     </div>
+                    {% for i in user_teams %}
                     <div class="teams-grid">
                         <div class="card team-card">
-                            <div class="team-banner" style="background-image: url('img/team-banner1.jpg')">
+                            <div class="team-banner" style="background-image: url('{% static 'images/banner1.jpg' %}')">
                                 <div class="team-info-overlay">
-                                    <h3>Web App Development</h3>
+                                    <h3>{{ i.team_project_topic }}</h3>
                                     <span class="team-role">Team Lead</span>
                                 </div>
                             </div>
@@ -70,7 +71,7 @@
                                 </div>
                                 <div class="team-members">
                                     <div class="member-avatars">
-                                        <img src="img/default-avatar.png" alt="Team member" title="You">
+                                        <img src="{{ user_profile.userimage.url }}" alt="Team member" title="You">
                                         <img src="img/student1.jpg" alt="Team member" title="Alex Johnson">
                                         <img src="img/student2.jpg" alt="Team member" title="Emily Wong">
                                         <img src="img/student4.jpg" alt="Team member" title="Sarah Lee">
@@ -83,9 +84,10 @@
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
                         
                         <div class="card team-card">
-                            <div class="team-banner" style="background-image: url('img/team-banner2.jpg')">
+                            <div class="team-banner" style="background-image: url('{% static 'images/banner.jpg' %}')">
                                 <div class="team-info-overlay">
                                     <h3>Machine Learning</h3>
                                     <span class="team-role">Team Member</span>

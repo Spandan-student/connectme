@@ -14,7 +14,7 @@
                 <form class="auth-form popup-form" method="POST" action="{% url "login" %}">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="{{ form.username.id_for_label }}"> Username: </label>
+                        <label for="{{ form.username.id_for_label }}"> University Email: </label>
                         <div class="input-icon-wrapper">
                             <i class="fas fa-envelope input-icon"></i>
                             <input type="text" name="{{ form.username.name }}" value={{ form.username.value }}>
