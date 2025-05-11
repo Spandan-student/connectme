@@ -120,10 +120,12 @@
                         {% for i in recommended_connections %}
                         <div class="card student-card">
                             <div class="student-header">
-                                <div class="student-avatar">
+                                {% comment %} <a href="{% url "peerprofile" %}"> {% endcomment %}
+                                    <div class="student-avatar">
                                     <img src="{{ i.personal_details.userimage.url }}" alt="Student">
                                     <span class="status-dot online"></span>
                                 </div>
+                            {% comment %} </a> {% endcomment %}
                                 <div class="student-actions">
                                     <button class="action-icon" title="Message">
                                         <i class="fas fa-comment"></i>
@@ -270,6 +272,82 @@
                             </div>
                         </div>
                         {% endfor %}
+                    </div>
+                </section>
+
+                <section class="dashboard-section my-connections">
+                    <div class="section-header">
+                        <h2>My Connections</h2>
+                        <a href="#" class="section-action">View All <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                    <div class="connections-container">
+                        {% for user in user_connections %}
+                        {% with profile=user.personal_details_models_set.first %}
+                        <div class="connection-card">
+                            <img src="{{ profile.userimage.url }}" alt="Alex Johnson" class="connection-avatar">
+                            <div class="connection-info">
+                                <h3>{{ profile.username }}</h3>
+                                <p>{{ profile.userdept }}, 3rd Year</p>
+                            </div>
+                            <div class="connection-actions">
+                                <button class="conn-action-btn" title="Message">
+                                    <i class="fas fa-comment"></i>
+                                </button>
+                                <button class="conn-action-btn" title="View Profile">
+                                    <i class="fas fa-user"></i>
+                                </button>
+                            </div>
+                        </div>
+                        {% endwith %}
+                        {% endfor %}
+                        
+                        <div class="connection-card">
+                            <img src="{% static 'images/avatar.png' %}" alt="Marcus Chen" class="connection-avatar">
+                            <div class="connection-info">
+                                <h3>Marcus Chen</h3>
+                                <p>Computer Engineering, 4th Year</p>
+                            </div>
+                            <div class="connection-actions">
+                                <button class="conn-action-btn" title="Message">
+                                    <i class="fas fa-comment"></i>
+                                </button>
+                                <button class="conn-action-btn" title="View Profile">
+                                    <i class="fas fa-user"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="connection-card">
+                            <img src="{% static 'images/avatar.png' %}" alt="Sarah Lee" class="connection-avatar">
+                            <div class="connection-info">
+                                <h3>Sarah Lee</h3>
+                                <p>Business Analytics, 3rd Year</p>
+                            </div>
+                            <div class="connection-actions">
+                                <button class="conn-action-btn" title="Message">
+                                    <i class="fas fa-comment"></i>
+                                </button>
+                                <button class="conn-action-btn" title="View Profile">
+                                    <i class="fas fa-user"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="connection-card">
+                            <img src="{% static 'images/avatar.png' %}" alt="Priya Patel" class="connection-avatar">
+                            <div class="connection-info">
+                                <h3>Priya Patel</h3>
+                                <p>Data Science, 4th Year</p>
+                            </div>
+                            <div class="connection-actions">
+                                <button class="conn-action-btn" title="Message">
+                                    <i class="fas fa-comment"></i>
+                                </button>
+                                <button class="conn-action-btn" title="View Profile">
+                                    <i class="fas fa-user"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </section>
                 
@@ -595,11 +673,15 @@
                 toggle.addEventListener('click', function(e) {
                     e.stopPropagation();
                     const dropdown = this.closest('.dropdown');
+                    
+                    // Close all other dropdowns
                     dropdownToggles.forEach(otherToggle => {
                         if (otherToggle !== this) {
                             otherToggle.closest('.dropdown').classList.remove('show');
                         }
                     });
+                    
+                    // Toggle current dropdown
                     dropdown.classList.toggle('show');
                 });
             });

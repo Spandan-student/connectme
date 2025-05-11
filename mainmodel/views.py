@@ -585,25 +585,37 @@ def dashboard(request):
     email = user.email
     last_login = user.last_login
     user_teams = personal_team_models.objects.filter(university_email=request.user)
+    user_connections = personal_connections_models.objects.filter(university_email=request.user)
+    
+    try:
+        user_connections_obj = personal_connections_models.objects.get(university_email=request.user)
+        user_connections = user_connections_obj.connections.all()  # This gives actual connected users
+    except personal_connections_models.DoesNotExist:
+        user_connections = []
+
+    try:
+        connection_obj = personal_connections_models.objects.get(university_email=user)
+        connected_users = connection_obj.connections.all()
+    except personal_connections_models.DoesNotExist:
+        connected_users = []
+
+
 
     try:
         users_score = profile_score_models.objects.get(university_email=user)
         all_users_score = profile_score_models.objects.exclude(university_email=user)
-        recommended_connections_personaldetails = []
-        recommended_connections_skillsdetails = []
+        recommended_connections = []
         
         for each_user in all_users_score:
-            if each_user.user_score and connectionchecker.check_connection(each_user.user_score, users_score.user_score):
+            if (each_user.university_email not in connected_users and each_user.user_score and connectionchecker.check_connection(each_user.user_score, users_score.user_score)):
                 try:
                     personal_details = personal_details_models.objects.get(university_email=each_user.university_email)
                     skills_details = personal_skill_models.objects.get(university_email=each_user.university_email)
-                    recommended_connections_personaldetails.append(personal_details)
-                    recommended_connections_skillsdetails.append(skills_details)
+                    recommended_connections.append({'personal_details':personal_details, 'skills_details':skills_details})
                 except personal_details_models.DoesNotExist:
                     continue
     except profile_score_models.DoesNotExist:
-        recommended_connections_personaldetails = []
-        recommended_connections_skillsdetails = []
+        recommended_connections = []
 
     context = {
         'user_profile': user_profile,
@@ -613,10 +625,10 @@ def dashboard(request):
         'user_profile': user_profile,
         'user_teams': user_teams,
         'users_score': users_score,
-        'recommended_connections_personaldetails': recommended_connections_personaldetails,
-        'recommended_connections_skillsdetails': recommended_connections_skillsdetails
+        'recommended_connections': recommended_connections,
+        'user_connections':user_connections
     }
-    return render(request, 'dashboard.html', context)
+    return render(request, 'dashboard1.html', context)
 
 @auth
 def profile(request):
@@ -825,3 +837,15 @@ def teampage(request):
         'users_score': users_score
     }
     return render(request,'teampage.html',context)
+
+def peerprofile(request):
+    user=request.user
+    user_personal_profile=personal_details_models.objects.filter(university_email=user)
+    user_skill_profile=personal_skill_models.objects.filter(university_email=user)
+    user_academic_profile=personal_academics_models.objects.filter(university_email=user)
+    context={
+        'user_personal_profile':user_personal_profile,
+        'user_skill_profile':user_skill_profile,
+        'user_academic_profile':user_academic_profile,
+    }
+    return render(request, 'peerprofile.html', context)

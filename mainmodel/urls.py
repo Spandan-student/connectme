@@ -10,4 +10,5 @@ urlpatterns = [
     path('dashboard/',views.dashboard,name='dashboard'),
     path('teampage/',views.teampage,name='teampage'),
     path('connect/',views.connect,name='connect'),
+    path('peerprofile/',views.peerprofile,name='peerprofile'),
 ]

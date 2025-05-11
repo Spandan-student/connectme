@@ -1,0 +1,690 @@
+{% extends "ApplayoutSidebar.html" %}
+{% load static %}
+
+{% block content %}
+<main class="content">
+    <header class="content-header">
+        <div class="left-section">
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1>User Profile</h1>
+        </div>
+        
+        <div class="right-section">
+            <div class="profile-actions">
+                {% if user_personal_profile.university_email == request.user %}
+                <a href="{% url 'edit_profile' %}" class="btn primary">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+    
+    <div class="profile-container view-only">
+        <div class="profile-main-content">
+            <!-- Profile Header Card -->
+            <div class="profile-header-card">
+                <div class="profile-cover"></div>
+                <div class="profile-header-content">
+                    <div class="profile-avatar-large">
+                        {% if user_personal_profile.userimage %}
+                            <img src="{{ user_personal_profile.userimage.url }}" alt="{{ user_personal_profile.username }}">
+                        {% else %}
+                            <img src="{% static 'images/default-avatar.png' %}" alt="{{ user_personal_profile.username }}">
+                        {% endif %}
+                    </div>
+                    <div class="profile-header-info">
+                        <h2>{{ user_personal_profile.username }}</h2>
+                        <p class="profile-headline">{{ user_personal_profile.userdept }}</p>
+                        
+                        <div class="profile-quick-info">
+                            {% if user_skills.skills %}
+                                <span class="profile-tag">{{ user_skills.get_skills_display }}</span>
+                            {% endif %}
+                            {% if user_skills.sleep_schedule %}
+                                <span class="profile-tag">{{ user_skills.get_sleep_schedule_display }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- About Section -->
+            <div class="profile-section-card">
+                <div class="section-header">
+                    <h3><i class="fas fa-user"></i> About</h3>
+                </div>
+                <div class="section-content">
+                    {% if user_personal_profile.userbio %}
+                        <p>{{ user_personal_profile.userbio }}</p>
+                    {% else %}
+                        <p class="text-muted">No bio provided</p>
+                    {% endif %}
+                    
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Age</span>
+                            <span class="info-value">{{ user_personal_profile.userAge }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Department</span>
+                            <span class="info-value">{{ user_personal_profile.userdept }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Year of Study</span>
+                            <span class="info-value">
+                                {% if user_academics.yearofaddmission and user_academics.passoutyear %}
+                                    {{ user_academics.yearofaddmission|date:"Y" }} - {{ user_academics.passoutyear|date:"Y" }}
+                                {% else %}
+                                    Not specified
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Sleep Schedule</span>
+                            <span class="info-value">
+                                {% if user_skills.sleep_schedule %}
+                                    {{ user_skills.get_sleep_schedule_display }}
+                                {% else %}
+                                    Not specified
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Skills & Interests Section -->
+            <div class="profile-section-card">
+                <div class="section-header">
+                    <h3><i class="fas fa-code"></i> Skills & Interests</h3>
+                </div>
+                <div class="section-content">
+                    <div class="subsection">
+                        <h4>Primary Skill Area</h4>
+                        <div class="tags-container">
+                            {% if user_skills.skills %}
+                                <span class="profile-tag large">{{ user_skills.get_skills_display }}</span>
+                            {% else %}
+                                <p class="text-muted">No skills specified</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="subsection">
+                        <h4>Hobbies & Interests</h4>
+                        <div class="tags-container">
+                            {% if user_skills.hobbies %}
+                                {% for hobby in user_skills.hobbies|split:"," %}
+                                    <span class="profile-tag">{{ hobby|strip }}</span>
+                                {% endfor %}
+                            {% else %}
+                                <p class="text-muted">No hobbies listed</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Academic Information Section -->
+            <div class="profile-section-card">
+                <div class="section-header">
+                    <h3><i class="fas fa-university"></i> Academic Information</h3>
+                </div>
+                <div class="section-content">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">CGPA</span>
+                            <span class="info-value">{{ user_academics.userCGPA|default:"Not specified" }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Hackathons</span>
+                            <span class="info-value">{{ user_academics.hackathonNo|default:"0" }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Coding Contests</span>
+                            <span class="info-value">{{ user_academics.contestNo|default:"0" }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">LeetCode Problems</span>
+                            <span class="info-value">{{ user_academics.leetcodeNo|default:"0" }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="profile-sidebar">
+            <!-- Profile Score Card -->
+            {% if userscore %}
+            <div class="profile-card">
+                <h3><i class="fas fa-star"></i> Profile Score</h3>
+                <div class="score-display">
+                    <div class="score-circle has-score">
+                        <span>{{ userscore }}</span>
+                    </div>
+                    <div class="score-text">
+                        {% if userscore|int >= 80 %}
+                        <p><strong>Excellent score!</strong> This profile is well-optimized for team matching.</p>
+                        {% elif userscore|int >= 60 %}
+                        <p><strong>Good score!</strong> This profile will receive quality matches.</p>
+                        {% else %}
+                        <p>This profile can be improved to get better team matches.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Connection Stats Card -->
+            <div class="profile-card">
+                <h3><i class="fas fa-chart-line"></i> Stats</h3>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-icon connections-icon">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-value">{{ connections_count|default:"0" }}</span>
+                            <span class="stat-label">Connections</span>
+                        </div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-icon teams-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-value">{{ teams_count|default:"0" }}</span>
+                            <span class="stat-label">Teams</span>
+                        </div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-icon projects-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-value">{{ projects_count|default:"0" }}</span>
+                            <span class="stat-label">Projects</span>
+                        </div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-icon skills-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-value">1</span>
+                            <span class="stat-label">Skills</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Teams Card -->
+            {% if user_teams %}
+            <div class="profile-card">
+                <h3><i class="fas fa-users"></i> Teams</h3>
+                <div class="mini-teams-list">
+                    {% for team in user_teams %}
+                    <a href="#" class="mini-team">
+                        <span class="team-icon">
+                            <i class="fas fa-users"></i>
+                        </span>
+                        <span class="team-info">
+                            <span class="team-name">{{ team }}</span>
+                            <span class="team-role">Member</span>
+                        </span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Contact Card (only if not viewing own profile) -->
+            {% if user_personal_profile.university_email != request.user %}
+            <div class="profile-card">
+                <h3><i class="fas fa-envelope"></i> Contact</h3>
+                <div class="contact-actions">
+                    <button class="btn primary full-width">
+                        <i class="fas fa-plus"></i> Connect
+                    </button>
+                    <button class="btn outline full-width">
+                        <i class="fas fa-comment"></i> Message
+                    </button>
+                    <button class="btn secondary full-width">
+                        <i class="fas fa-user-plus"></i> Invite to Team
+                    </button>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</main>
+
+<style>
+    /* View-only Profile Page Styles */
+    .profile-container.view-only {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 20px;
+        padding: 0 10px;
+        max-width: 100%;
+    }
+    
+    .profile-main-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    /* Profile Header Card */
+    .profile-header-card {
+        background-color: white;
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+    }
+    
+    .profile-cover {
+        height: 120px;
+        background: var(--primary-gradient);
+        position: relative;
+    }
+    
+    .profile-header-content {
+        display: flex;
+        padding: 0 20px 20px;
+        margin-top: -40px;
+    }
+    
+    .profile-avatar-large {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 4px solid white;
+        box-shadow: var(--card-shadow);
+        margin-right: 20px;
+        flex-shrink: 0;
+    }
+    
+    .profile-avatar-large img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .profile-header-info {
+        padding-top: 40px;
+    }
+    
+    .profile-header-info h2 {
+        margin: 0 0 5px;
+        font-size: 24px;
+        font-weight: 600;
+    }
+    
+    .profile-headline {
+        color: #666;
+        margin: 0 0 10px;
+        font-size: 16px;
+    }
+    
+    .profile-quick-info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    /* Section Cards */
+    .profile-section-card {
+        background-color: white;
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--card-shadow);
+        overflow: hidden;
+    }
+    
+    .section-header {
+        padding: 15px 20px;
+        border-bottom: 1px solid #eaedf3;
+    }
+    
+    .section-header h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+        display: flex;
+        align-items: center;
+    }
+    
+    .section-header h3 i {
+        margin-right: 10px;
+        color: var(--primary-color);
+    }
+    
+    .section-content {
+        padding: 20px;
+    }
+    
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+        margin-top: 15px;
+    }
+    
+    .info-item {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .info-label {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 5px;
+    }
+    
+    .info-value {
+        font-size: 16px;
+        font-weight: 500;
+        color: #333;
+    }
+    
+    .subsection {
+        margin-bottom: 20px;
+    }
+    
+    .subsection h4 {
+        font-size: 16px;
+        margin: 0 0 10px;
+        color: #444;
+    }
+    
+    .text-muted {
+        color: #999;
+        font-style: italic;
+    }
+    
+    /* Tags */
+    .tags-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .profile-tag {
+        background-color: #f0f4fa;
+        color: var(--primary-color);
+        padding: 5px 12px;
+        border-radius: 16px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    
+    .profile-tag.large {
+        font-size: 16px;
+        padding: 6px 14px;
+    }
+    
+    /* Sidebar Cards */
+    .profile-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .profile-card {
+        background-color: white;
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--card-shadow);
+        padding: 20px;
+    }
+    
+    .profile-card h3 {
+        margin: 0 0 15px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+        display: flex;
+        align-items: center;
+    }
+    
+    .profile-card h3 i {
+        margin-right: 10px;
+        color: var(--primary-color);
+    }
+    
+    /* Score Display */
+    .score-display {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .score-circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #f5f7fa, #e5e9f0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+        border: 3px solid #eaedf3;
+    }
+    
+    .score-circle.has-score {
+        background: var(--primary-gradient);
+        border-color: transparent;
+    }
+    
+    .score-circle span {
+        font-size: 32px;
+        font-weight: 700;
+        color: white;
+    }
+    
+    .score-text {
+        color: #555;
+        font-size: 14px;
+    }
+    
+    /* Stats Grid */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    
+    .stat-box {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border-radius: var(--border-radius-md);
+        background-color: #f5f7fa;
+    }
+    
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+        color: white;
+    }
+    
+    .connections-icon {
+        background: var(--primary-gradient);
+    }
+    
+    .teams-icon {
+        background: var(--secondary-gradient);
+    }
+    
+    .projects-icon {
+        background: linear-gradient(135deg, #9c27b0, #4a148c);
+    }
+    
+    .skills-icon {
+        background: linear-gradient(135deg, #00bcd4, #006064);
+    }
+    
+    .stat-details {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .stat-value {
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1;
+    }
+    
+    .stat-label {
+        font-size: 12px;
+        color: #777;
+    }
+    
+    /* Teams List */
+    .mini-teams-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .mini-team {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        padding: 10px;
+        border-radius: var(--border-radius-md);
+        background-color: #f5f7fa;
+        transition: var(--hover-transition);
+    }
+    
+    .mini-team:hover {
+        background-color: #e9ecf2;
+    }
+    
+    .team-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: rgba(66, 133, 244, 0.1);
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+    }
+    
+    .team-info {
+        flex: 1;
+    }
+    
+    .team-name {
+        display: block;
+        color: #333;
+        font-weight: 500;
+        margin-bottom: 2px;
+        font-size: 14px;
+    }
+    
+    .team-role {
+        display: block;
+        color: #777;
+        font-size: 12px;
+    }
+    
+    /* Contact Actions */
+    .contact-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .full-width {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 1200px) {
+        .profile-container.view-only {
+            grid-template-columns: 2fr 1fr;
+        }
+    }
+    
+    @media (max-width: 992px) {
+        .profile-container.view-only {
+            grid-template-columns: 1fr;
+        }
+        
+        .profile-sidebar {
+            order: -1;
+        }
+        
+        .profile-card {
+            margin-bottom: 0;
+        }
+        
+        .info-grid {
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .profile-header-content {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 10px 15px;
+        }
+        
+        .profile-avatar-large {
+            margin-right: 0;
+            margin-bottom: 15px;
+        }
+        
+        .profile-header-info {
+            padding-top: 0;
+        }
+        
+        .profile-quick-info {
+            justify-content: center;
+        }
+        
+        .section-content {
+            padding: 15px;
+        }
+        
+        .stats-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .info-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .section-header h3 {
+            font-size: 16px;
+        }
+        
+        .profile-avatar-large {
+            width: 90px;
+            height: 90px;
+        }
+        
+        .profile-header-info h2 {
+            font-size: 20px;
+        }
+    }
+</style>
+{% endblock content %}
