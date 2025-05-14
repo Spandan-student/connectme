@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5i+!_rka01*z^($wi3nva*lzabu$r63sf*ks#a@9he#yo+@)1r'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -84,36 +87,18 @@ WSGI_APPLICATION = 'connectme.wsgi.application'
 #     }
 # }
 
-# Add these at the top of your settings.py
-from os import getenv
-from dotenv import load_dotenv
 
-# Replace the DATABASES section of your settings.py with this
-# DATABASES = {
-#   'default': {
-#     'ENGINE': 'django.db.backends.postgresql',
-#     'NAME': getenv('PGHOST'),
-#     'USER': getenv('PGUSER'),
-#     'PASSWORD': getenv('PGPASSWORD'),
-#     'HOST': getenv('PGHOST'),
-#     'PORT': getenv('PGPORT', 5432),
-#     'OPTIONS': {
-#       'sslmode': 'require',
-#     },
-#     'DISABLE_SERVER_SIDE_CURSORS': True,
-#   }
-# }
+# DATABASE
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': 'neondb',
-    'USER': 'neondb_owner',
-    'PASSWORD': 'npg_fej9pKxmNT4O',
-    'HOST': 'ep-royal-pine-a4as6b0z.us-east-1.aws.neon.tech',
+    'NAME': os.getenv('PGDATABASE'),
+    'USER': os.getenv('PGUSER'),
+    'PASSWORD': os.getenv('PGPASSWORD'),
+    'HOST': os.getenv('PGHOST'),
     'PORT': '5432',
   }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
