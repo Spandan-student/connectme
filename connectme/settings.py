@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
     'mainmodel',
 ]
 
@@ -152,5 +154,13 @@ STORAGES = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# MEDIA_ROOT= BASE_DIR / 'media'    used when in development
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('your_cloud_name'),
+    'API_KEY': os.getenv('your_api_key'),
+    'API_SECRET': os.getenv('your_api_secret')
+}
+
 MEDIA_URL= "/media/"
-MEDIA_ROOT= BASE_DIR / 'media'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
