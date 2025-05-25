@@ -1,7 +1,8 @@
 {% extends "Applayout.html" %}
 {% block content %}
 {% load static %}
-        
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/landing.css' %}">
         <header class="hero-section">
             <div class="hero-content">
                 <h1>Connect. Collaborate. Create.</h1>
@@ -26,7 +27,7 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="img/hero-image.png" alt="Students collaborating" class="main-image">
+                <img src="{% static 'images/avatar.png' %}" alt="Students collaborating" class="main-image" style="height: 325px; width:325px;">
                 <div class="floating-card card-1">
                     <div class="user-avatar"><i class="fas fa-user-circle"></i></div>
                     <div class="card-content">
@@ -130,6 +131,20 @@
                     <h3>Showcase Portfolio</h3>
                     <p>Display your completed projects and achievements to build your resume</p>
                 </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>University Verified</h3>
+                    <p>Email verification for university students (.edu domains)</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-dashboard"></i>
+                    </div>
+                    <h3>Interactive Dashboard</h3>
+                    <p>Recommended students section, Current teams overview and much more</p>
+                </div>
             </div>
         </section>
         
@@ -140,7 +155,7 @@
                     <div class="carousel-slide">
                         <div class="project-card">
                             <div class="project-image">
-                                <img src="img/project1.jpg" alt="AR Campus App">
+                                <img src="{% static "images/campus_navigation.jpg" %}" alt="AR Campus App">
                             </div>
                             <div class="project-content">
                                 <h3>AR Campus Navigation</h3>
@@ -164,7 +179,7 @@
                     <div class="carousel-slide">
                         <div class="project-card">
                             <div class="project-image">
-                                <img src="img/project2.jpg" alt="Student Marketplace">
+                                <img src="{% static "images/students_market.jpg" %}" alt="Student Marketplace">
                             </div>
                             <div class="project-content">
                                 <h3>Student Marketplace</h3>
@@ -188,7 +203,7 @@
                     <div class="carousel-slide">
                         <div class="project-card">
                             <div class="project-image">
-                                <img src="img/project3.jpg" alt="Study Group Scheduler">
+                                <img src="{% static "images/study_scheduler.jpg" %}" alt="Study Group Scheduler">
                             </div>
                             <div class="project-content">
                                 <h3>Study Group Scheduler</h3>
@@ -225,10 +240,10 @@
             <div class="testimonials-container">
                 <div class="testimonial">
                     <div class="testimonial-content">
-                        <p>"StudentConnect helped me find the perfect team for my senior project. We ended up winning first place in the engineering showcase!"</p>
+                        <p>"ConnectMe helped me find the perfect team for my senior project. We ended up winning first place in the engineering showcase!"</p>
                     </div>
                     <div class="testimonial-author">
-                        <div class="author-avatar"></div>
+                        <div class="author-avatar" style="background-color: rgba(0, 246, 74, 0.584);"></div>
                         <div class="author-info">
                             <h4>Alex Johnson</h4>
                             <p>Computer Science, MIT</p>
@@ -237,10 +252,10 @@
                 </div>
                 <div class="testimonial">
                     <div class="testimonial-content">
-                        <p>"As an international student, it was hard to connect with peers in my program until I found StudentConnect. Now I have an amazing network!"</p>
+                        <p>"As an international student, it was hard to connect with peers in my program until I found ConnectMe. Now I have an amazing network!"</p>
                     </div>
                     <div class="testimonial-author">
-                        <div class="author-avatar"></div>
+                        <div class="author-avatar" style="background-color: rgba(0, 246, 74, 0.584);"></div>
                         <div class="author-info">
                             <h4>Priya Patel</h4>
                             <p>Data Science, Stanford</p>
@@ -252,7 +267,7 @@
                         <p>"The skills matching algorithm is incredible! I found teammates who complement my abilities perfectly, making our projects so much better."</p>
                     </div>
                     <div class="testimonial-author">
-                        <div class="author-avatar"></div>
+                        <div class="author-avatar" style="background-color: rgba(0, 246, 74, 0.584);"></div>
                         <div class="author-info">
                             <h4>Marcus Chen</h4>
                             <p>Digital Media Arts, UCLA</p>
@@ -263,25 +278,25 @@
         </section>
         
         <section id="universities" class="section">
-            <h2 class="section-title">Universities Using StudentConnect</h2>
+            <h2 class="section-title">Universities Using ConnectMe</h2>
             <div class="universities-grid">
                 <div class="university-logo">
-                    <img src="img/university1.png" alt="University Logo">
+                    <img src="{% static 'images/university1.jpg' %}" alt="University Logo">
                 </div>
                 <div class="university-logo">
-                    <img src="img/university2.png" alt="University Logo">
+                    <img src="{% static 'images/university2.jpg' %}" alt="University Logo">
                 </div>
                 <div class="university-logo">
-                    <img src="img/university3.png" alt="University Logo">
+                    <img src="{% static 'images/university3.jpg' %}" alt="University Logo">
                 </div>
                 <div class="university-logo">
-                    <img src="img/university4.png" alt="University Logo">
+                    <img src="{% static 'images/university4.jpg' %}" alt="University Logo">
                 </div>
                 <div class="university-logo">
-                    <img src="img/university5.png" alt="University Logo">
+                    <img src="{% static 'images/university5.jpg' %}" alt="University Logo">
                 </div>
                 <div class="university-logo">
-                    <img src="img/university6.png" alt="University Logo">
+                    <img src="{% static 'images/university6.jpg' %}" alt="University Logo">
                 </div>
             </div>
         </section>
@@ -292,7 +307,7 @@
                 <div class="faq-item">
                     <div class="faq-question">
                         <h3>How do I verify my university email?</h3>
-                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                        {% comment %} <span class="faq-toggle"><i class="fas fa-plus"></i></span> {% endcomment %}
                     </div>
                     <div class="faq-answer">
                         <p>After registration, we'll send a verification link to your university email address. Simply click the link to verify your account.</p>
@@ -301,7 +316,7 @@
                 <div class="faq-item">
                     <div class="faq-question">
                         <h3>Can I join multiple teams?</h3>
-                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                        {% comment %} <span class="faq-toggle"><i class="fas fa-plus"></i></span> {% endcomment %}
                     </div>
                     <div class="faq-answer">
                         <p>Yes! You can join up to 5 active teams at once, allowing you to collaborate on different projects simultaneously.</p>
@@ -310,7 +325,7 @@
                 <div class="faq-item">
                     <div class="faq-question">
                         <h3>How does the matching algorithm work?</h3>
-                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                        {% comment %} <span class="faq-toggle"><i class="fas fa-plus"></i></span> {% endcomment %}
                     </div>
                     <div class="faq-answer">
                         <p>Our matching algorithm analyzes your skills, interests, academic goals, and project preferences to suggest peers who would make great collaborators.</p>
@@ -318,11 +333,11 @@
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">
-                        <h3>Is StudentConnect free for students?</h3>
-                        <span class="faq-toggle"><i class="fas fa-plus"></i></span>
+                        <h3>Is ConnectMe free for students?</h3>
+                        {% comment %} <span class="faq-toggle"><i class="fas fa-plus"></i></span> {% endcomment %}
                     </div>
                     <div class="faq-answer">
-                        <p>Yes! StudentConnect is completely free for all university students with a valid .edu email address.</p>
+                        <p>Yes! ConnectMe is completely free for all university students with a valid .edu email address.</p>
                     </div>
                 </div>
             </div>
@@ -331,19 +346,19 @@
         <section id="download" class="section">
             <div class="download-container">
                 <div class="download-content">
-                    <h2>Take StudentConnect On The Go</h2>
+                    <h2>Take ConnectMe On The Go</h2>
                     <p>Download our mobile app to stay connected with your teams anywhere, anytime.</p>
                     <div class="app-badges">
-                        <a href="#" class="app-badge">
-                            <img src="img/app-store.png" alt="App Store">
+                        <a href="" class="app-badge">
+                            <img src="{% static "images/AppStore.png" %}" alt="App Store" style="height: 135px;">
                         </a>
-                        <a href="#" class="app-badge">
-                            <img src="img/google-play.png" alt="Google Play">
+                        <a href="" class="app-badge">
+                            <img src="{% static "images/GooglePlay.png" %}" alt="Google Play" style="height: 135px;">
                         </a>
                     </div>
                 </div>
                 <div class="download-image">
-                    <img src="img/app-mockup.png" alt="Mobile App">
+                    <img src="{% static "images/mobileapp.jpg" %}" alt="Mobile App">
                 </div>
             </div>
         </section>
@@ -355,13 +370,55 @@
             <div class="popup-icon">
                 <i class="fas fa-bell"></i>
             </div>
-            <h3>Welcome to StudentConnect!</h3>
+            <h3>Welcome to ConnectMe!</h3>
             <p>Connect with fellow students, join teams, and bring your ideas to life.</p>
             <a href="{% url "registration" %}" class="btn primary">Get Started</a>
         </div>
     </div>
     
     <script src="{% static 'js/landing.js' %}"></script>
+    <!-- Add this just before the closing body tag in index1.html -->
+<!-- Add this just before the closing body tag in index1.html -->
+<script>
+    // Direct fix for FAQ accordion
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('FAQ fix from inline script');
+        
+        // Direct fix for FAQ accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', function() {
+                console.log('FAQ question clicked');
+                
+                // Get the parent FAQ item
+                const faqItem = this.parentElement;
+                
+                // Toggle active class
+                const isActive = faqItem.classList.toggle('active');
+                
+                // Get the answer element
+                const answer = faqItem.querySelector('.faq-answer');
+                
+                // Apply direct style to show/hide the answer
+                if (isActive) {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    answer.style.padding = '0 20px 20px';
+                    // Update icon
+                    const icon = this.querySelector('.faq-toggle i');
+                    if (icon) icon.className = 'fas fa-minus';
+                } else {
+                    answer.style.maxHeight = '0';
+                    answer.style.padding = '0 20px';
+                    // Update icon
+                    const icon = this.querySelector('.faq-toggle i');
+                    if (icon) icon.className = 'fas fa-plus';
+                }
+            });
+        });
+    });
+</script>
+
 
 {% endblock content %}
     

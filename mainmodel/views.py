@@ -479,7 +479,11 @@ from django.contrib import messages
 
 # Create your views here.
 def index(request):
-    return render(request, 'index1.html')
+    #projects=personal_team_models.objects.all()
+    context={
+
+    }
+    return render(request, 'index1.html',context)
 
 @guest
 def registration(request):
@@ -544,6 +548,7 @@ def applayoutsidebar(request):
         }
     return render(request, 'ApplayoutSidebar.html', context)
 
+@auth
 def connect(request):
     user = request.user
     users_score = profile_score_models.objects.get(university_email=user)
@@ -838,14 +843,131 @@ def teampage(request):
     }
     return render(request,'teampage.html',context)
 
-def peerprofile(request):
+@auth
+def peerprofile(request, user_id=None):
     user=request.user
-    user_personal_profile=personal_details_models.objects.filter(university_email=user)
-    user_skill_profile=personal_skill_models.objects.filter(university_email=user)
-    user_academic_profile=personal_academics_models.objects.filter(university_email=user)
+    user_profile = personal_details_models.objects.get(university_email=request.user)
+    users_score = profile_score_models.objects.get(university_email=request.user)
+    """
+    View for displaying other users' profiles.
+    If user_id is provided, show that specific user's profile.
+    Otherwise, show the current user's profile.
+    """
+    if user_id:
+        try:
+            # Get the user object by ID
+            target_user = User.objects.get(id=user_id)
+            
+            # Get profile information for that user
+            user_personal_profile = personal_details_models.objects.get(university_email=target_user)
+            user_skills = personal_skill_models.objects.get(university_email=target_user)
+            user_academics = personal_academics_models.objects.get(university_email=target_user)
+            
+            # Get user's teams
+            user_teams = personal_team_models.objects.filter(university_email=target_user)
+            
+            # Get connections count
+            try:
+                connections_obj = personal_connections_models.objects.get(university_email=target_user)
+                connections_count = connections_obj.connections.count()
+            except personal_connections_models.DoesNotExist:
+                connections_count = 0
+                
+            # Get user score if available
+            try:
+                userscore = profile_score_models.objects.get(university_email=target_user).user_score
+            except profile_score_models.DoesNotExist:
+                userscore = None
+                
+            context = {
+                # current user details
+                'user_profile':user_profile,
+                'users_score':users_score,
+
+                # profile visting user details
+                'user_personal_profile': user_personal_profile,
+                'user_skills': user_skills,
+                'user_academics': user_academics,
+                'user_teams': user_teams,
+                'connections_count': connections_count,
+                'userscore': userscore,
+                'is_own_profile': (request.user.id == user_id)
+            }
+            
+            return render(request, 'peerprofile.html', context)
+            
+        except (User.DoesNotExist, personal_details_models.DoesNotExist, 
+                personal_skill_models.DoesNotExist, personal_academics_models.DoesNotExist):
+            # If any required data is missing, redirect to dashboard
+            messages.error(request, "User profile not found or incomplete")
+            return redirect('dashboard')
+    else:
+        # If no user_id specified, show current user's profile
+        user = request.user
+        
+        try:
+            user_personal_profile = personal_details_models.objects.get(university_email=user)
+            user_skills = personal_skill_models.objects.get(university_email=user)
+            user_academics = personal_academics_models.objects.get(university_email=user)
+            user_teams = personal_team_models.objects.filter(university_email=user)
+            
+            # Get connections count
+            try:
+                connections_obj = personal_connections_models.objects.get(university_email=user)
+                connections_count = connections_obj.connections.count()
+            except personal_connections_models.DoesNotExist:
+                connections_count = 0
+                
+            # Get user score
+            try:
+                userscore = profile_score_models.objects.get(university_email=user).user_score
+            except profile_score_models.DoesNotExist:
+                userscore = None
+                
+            context = {
+                # current user details
+                'user_profile':user_profile,
+                'users_score':users_score,
+
+
+                'user_personal_profile': user_personal_profile,
+                'user_skills': user_skills,
+                'user_academics': user_academics,
+                'user_teams': user_teams,
+                'connections_count': connections_count,
+                'userscore': userscore,
+                'is_own_profile': True,
+                'connections_obj':connections_obj,
+            }
+            
+            return render(request, 'peerprofile.html', context)
+            
+        except (personal_details_models.DoesNotExist, personal_skill_models.DoesNotExist, personal_academics_models.DoesNotExist):
+            # If profile is not complete, redirect to profile page
+            messages.warning(request, "Please complete your profile first")
+            return redirect('profile')
+
+def search(request):
+    user=request.user
+    user_profile = personal_details_models.objects.get(university_email=request.user)
+    users_score = profile_score_models.objects.get(university_email=request.user)
+    if request.method=="GET":
+        search=request.GET.get('token')
+        searched_for=search
+        print(searched_for)
+        if personal_details_models.objects.filter(username=searched_for):
+            search_result=personal_details_models.objects.filter(username=searched_for)
+        elif personal_team_models.objects.filter(team_name=searched_for):
+            search_result=personal_team_models.objects.filter(team_name=searched_for)
+        elif personal_team_models.objects.filter(team_project_topic=searched_for):
+            search_result=personal_team_models.objects.filter(team_project_topic=searched_for)
+        else:
+            search_result="No Search matched"
+
     context={
-        'user_personal_profile':user_personal_profile,
-        'user_skill_profile':user_skill_profile,
-        'user_academic_profile':user_academic_profile,
+        'user_profile':user_profile,
+        'users_score':users_score,
+        'searched_for':searched_for,
+        'search_result':search_result
     }
-    return render(request, 'peerprofile.html', context)
+    return render(request, 'searchpage.html',context)

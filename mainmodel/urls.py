@@ -10,5 +10,7 @@ urlpatterns = [
     path('dashboard/',views.dashboard,name='dashboard'),
     path('teampage/',views.teampage,name='teampage'),
     path('connect/',views.connect,name='connect'),
-    path('peerprofile/',views.peerprofile,name='peerprofile'),
+    path('peerprofile/<int:user_id>/',views.peerprofile,name='peerprofile'),
+    path('peerprofile/',views.peerprofile,name='my_profile'),
+    path('search/',views.search,name='search'),
 ]

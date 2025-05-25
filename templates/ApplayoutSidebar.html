@@ -19,7 +19,7 @@
             <div class="sidebar-header">
                 <div class="logo">
                     <i class="fas fa-graduation-cap"></i>
-                    <a href="{% url "index" %}"><span>StudentConnect</span></a>
+                    <a href="{% url "index" %}"><span>ConnectMe</span></a>
                 </div>
                 <button class="mobile-close">
                     <i class="fas fa-times"></i>
@@ -65,8 +65,8 @@
                         <span class="badge alert">3</span>
                     </a>
                 </li>
-                <li>
-                    <a href="#">
+                <li class="{% if request.path == '/search/' %}active{% endif %}">
+                    <a href="{% url "search" %}">
                         <i class="fas fa-search"></i>
                         <span>Find Students</span>
                     </a>

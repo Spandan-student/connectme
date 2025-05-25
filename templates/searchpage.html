@@ -1,0 +1,773 @@
+{% extends "ApplayoutSidebar.html" %}
+{% load static %}
+
+{% block content %}
+<main class="content">
+    <header class="content-header">
+        <div class="left-section">
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1>Search</h1>
+        </div>
+        
+        <div class="right-section">
+            <div class="header-actions">
+                <div class="notifications dropdown">
+                    <button class="notification-btn dropdown-toggle">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                    <div class="dropdown-menu notification-menu">
+                        <div class="dropdown-header">
+                            <h3>Notifications</h3>
+                            <a href="#">Mark all as read</a>
+                        </div>
+                        <div class="dropdown-items">
+                            <a href="#" class="notification-item unread">
+                                <div class="notification-icon team">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p><strong>Team Invitation</strong>: You've been invited to join the "Mobile App Development" team</p>
+                                    <span class="notification-time">2 hours ago</span>
+                                </div>
+                            </a>
+                            <a href="#" class="notification-item unread">
+                                <div class="notification-icon message">
+                                    <i class="fas fa-comment-alt"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p><strong>New Message</strong>: Alex Johnson sent you a message about your project</p>
+                                    <span class="notification-time">5 hours ago</span>
+                                </div>
+                            </a>
+                            <a href="#" class="notification-item unread">
+                                <div class="notification-icon event">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p><strong>Upcoming Event</strong>: Hackathon: Build for Good starts tomorrow</p>
+                                    <span class="notification-time">1 day ago</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="dropdown-footer">
+                            <a href="#">View all notifications</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-menu dropdown">
+                    <button class="user-menu-btn dropdown-toggle">
+                        <img src="{{ user_profile.userimage.url }}" alt="User">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="{% url "profile" %}"><i class="fas fa-user"></i> My Profile</a>
+                        <a href="#"><i class="fas fa-cog"></i> Account Settings</a>
+                        <a href="#"><i class="fas fa-question-circle"></i> Help & Support</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{% url "logout" %}" id="logout-menu"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="search-section">
+        <div class="search-container">
+            <div class="search-box">
+                <form action="" method="GET" class="main-search-form">
+                    <div class="search-input-wrapper">
+                        <input type="text" name="token" placeholder="Search for students, teams, or projects..." class="main-search-input" value="{{ searched_for }}">
+                        <button type="submit" class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="search-filters">
+                <div class="filter-group">
+                    <label for="search-type">Search For:</label>
+                    <select id="search-type" name="type">
+                        <option value="all">All</option>
+                        <option value="students">Students</option>
+                        <option value="teams">Teams</option>
+                        <option value="projects">Projects</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="department">Department:</label>
+                    <select id="department" name="department">
+                        <option value="">All Departments</option>
+                        <option value="computer-science">Computer Science</option>
+                        <option value="engineering">AIML</option>
+                        <option value="business">ISE</option>
+                        <option value="design">ECE</option>
+                        <option value="biology">ME</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="year">Study Year:</label>
+                    <select id="year" name="year">
+                        <option value="">All Years</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                        <option value="5+">5+ Year</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="skills">Skills:</label>
+                    <select id="skills" name="skills">
+                        <option value="">Any Skills</option>
+                        <option value="python">Python</option>
+                        <option value="java">Java</option>
+                        <option value="javascript">Artificial Intelligence</option>
+                        <option value="design">UI/UX Design</option>
+                        <option value="data-science">Frontend</option>
+                        <option value="mobile-dev">Machine Learning</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="search-results">
+            <div class="search-results-header">
+                <h2>Results</h2>
+                <div class="results-count">Showing <span id="results-count">10</span> of <span id="total-results">24</span> results</div>
+                <div class="results-sorting">
+                    <label for="sort-by">Sort by:</label>
+                    <select id="sort-by">
+                        <option value="relevance">Relevance</option>
+                        <option value="name-asc">Name (A-Z)</option>
+                        <option value="name-desc">Name (Z-A)</option>
+                        <option value="match">Match Score</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="search-results-tabs">
+                <button class="tab-btn active" data-tab="all">All</button>
+                <button class="tab-btn" data-tab="students">Students</button>
+                <button class="tab-btn" data-tab="teams">Teams</button>
+                <button class="tab-btn" data-tab="projects">Projects</button>
+                <button class="tab-btn" data-tab="events">Events</button>
+            </div>
+            
+            <div class="search-results-container">
+                <!-- Students Section -->
+                {% for data in search_result %}
+                <div class="card-container student-results">
+                    <div class="card student-card">
+                        <div class="student-header">
+                            <div class="student-avatar">
+                                <img src="{% static 'images/avatar.png' %}" alt="Student">
+                                <span class="status-dot online"></span>
+                            </div>
+                            <div class="student-actions">
+                                <button class="action-icon" title="Message">
+                                    <i class="fas fa-comment"></i>
+                                </button>
+                                <button class="action-icon" title="Add to Team">
+                                    <i class="fas fa-user-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="student-info">
+                            <a href="#" class="student-name-link">
+                                <h3>{{ data.username }}</h3>
+                            </a>
+                            <p class="student-major">Computer Science, 3rd Year</p>
+                            <div class="match-score">
+                                <span class="match-label">Match</span>
+                                <div class="match-meter">
+                                    <div class="match-fill" style="width:92%"></div>
+                                </div>
+                                <span class="match-percent">92%</span>
+                            </div>
+                            <div class="tags">
+                                <span class="tag">Python</span>
+                                <span class="tag">Web Development</span>
+                                <span class="tag">Data Science</span>
+                            </div>
+                            <button class="btn primary connect-btn">
+                                <i class="fas fa-plus"></i> Connect
+                            </button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="card student-card">
+                        <div class="student-header">
+                            <div class="student-avatar">
+                                <img src="{% static 'images/avatar.png' %}" alt="Student">
+                                <span class="status-dot"></span>
+                            </div>
+                            <div class="student-actions">
+                                <button class="action-icon" title="Message">
+                                    <i class="fas fa-comment"></i>
+                                </button>
+                                <button class="action-icon" title="Add to Team">
+                                    <i class="fas fa-user-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="student-info">
+                            <a href="#" class="student-name-link">
+                                <h3>Emily Wong</h3>
+                            </a>
+                            <p class="student-major">UX Design, 2nd Year</p>
+                            <div class="match-score">
+                                <span class="match-label">Match</span>
+                                <div class="match-meter">
+                                    <div class="match-fill" style="width:87%"></div>
+                                </div>
+                                <span class="match-percent">87%</span>
+                            </div>
+                            <div class="tags">
+                                <span class="tag">UI Design</span>
+                                <span class="tag">Figma</span>
+                                <span class="tag">User Research</span>
+                            </div>
+                            <button class="btn primary connect-btn">
+                                <i class="fas fa-plus"></i> Connect
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card student-card">
+                        <div class="student-header">
+                            <div class="student-avatar">
+                                <img src="{% static 'images/avatar.png' %}" alt="Student">
+                                <span class="status-dot online"></span>
+                            </div>
+                            <div class="student-actions">
+                                <button class="action-icon" title="Message">
+                                    <i class="fas fa-comment"></i>
+                                </button>
+                                <button class="action-icon" title="Add to Team">
+                                    <i class="fas fa-user-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="student-info">
+                            <a href="#" class="student-name-link">
+                                <h3>Marcus Chen</h3>
+                            </a>
+                            <p class="student-major">Computer Engineering, 4th Year</p>
+                            <div class="match-score">
+                                <span class="match-label">Match</span>
+                                <div class="match-meter">
+                                    <div class="match-fill" style="width:78%"></div>
+                                </div>
+                                <span class="match-percent">78%</span>
+                            </div>
+                            <div class="tags">
+                                <span class="tag">C++</span>
+                                <span class="tag">Hardware</span>
+                                <span class="tag">IoT</span>
+                            </div>
+                            <button class="btn primary connect-btn">
+                                <i class="fas fa-plus"></i> Connect
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Teams Section -->
+                <div class="teams-container">
+                    <div class="card team-card">
+                        <div class="team-banner" style="background-image: url('{% static 'images/banner1.jpg' %}')">
+                            <div class="team-info-overlay">
+                                <h3>Web Development Team</h3>
+                                <span class="team-members-count">5 members</span>
+                            </div>
+                        </div>
+                        <div class="team-content">
+                            <p class="team-description">Building a student connection platform that allows university students to find peers with similar interests</p>
+                            <div class="team-meta">
+                                <div class="team-tags">
+                                    <span class="tag">Web Development</span>
+                                    <span class="tag">UI/UX</span>
+                                    <span class="tag">Django</span>
+                                </div>
+                                <div class="team-stats">
+                                    <span class="team-stat"><i class="fas fa-project-diagram"></i> 2 projects</span>
+                                    <span class="team-stat"><i class="fas fa-calendar-check"></i> 3 meetings/week</span>
+                                </div>
+                            </div>
+                            <div class="team-members">
+                                <div class="member-avatars">
+                                    <img src="{% static 'images/avatar.png' %}" alt="Team member">
+                                    <img src="{% static 'images/avatar.png' %}" alt="Team member">
+                                    <img src="{% static 'images/avatar.png' %}" alt="Team member">
+                                    <img src="{% static 'images/avatar.png' %}" alt="Team member">
+                                    <span class="more-members">+1</span>
+                                </div>
+                            </div>
+                            <div class="team-actions">
+                                <button class="btn outline">View Team</button>
+                                <button class="btn primary">Join Team</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card team-card">
+                        <div class="team-banner" style="background-image: url('{% static 'images/banner.jpg' %}')">
+                            <div class="team-info-overlay">
+                                <h3>Mobile App Development</h3>
+                                <span class="team-members-count">4 members</span>
+                            </div>
+                        </div>
+                        <div class="team-content">
+                            <p class="team-description">Creating innovative mobile applications for campus services and student life improvement</p>
+                            <div class="team-meta">
+                                <div class="team-tags">
+                                    <span class="tag">iOS</span>
+                                    <span class="tag">Android</span>
+                                    <span class="tag">React Native</span>
+                                </div>
+                                <div class="team-stats">
+                                    <span class="team-stat"><i class="fas fa-project-diagram"></i> 1 project</span>
+                                    <span class="team-stat"><i class="fas fa-calendar-check"></i> 2 meetings/week</span>
+                                </div>
+                            </div>
+                            <div class="team-members">
+                                <div class="member-avatars">
+                                    <img src="{% static 'images/avatar.png' %}" alt="Team member">
+                                    <img src="{% static 'images/avatar.png' %}" alt="Team member">
+                                    <img src="{% static 'images/avatar.png' %}" alt="Team member">
+                                    <img src="{% static 'images/avatar.png' %}" alt="Team member">
+                                </div>
+                            </div>
+                            <div class="team-actions">
+                                <button class="btn outline">View Team</button>
+                                <button class="btn primary">Join Team</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Projects Section -->
+                <div class="ideas-container">
+                    <div class="card idea-card">
+                        <div class="idea-header">
+                            <h3>AR Campus Navigation App</h3>
+                            <span class="idea-status">Looking for Team</span>
+                        </div>
+                        <p class="idea-description">Help students navigate campus using AR technology with real-time updates and indoor mapping</p>
+                        <div class="idea-meta">
+                            <div class="tags">
+                                <span class="tag">Mobile Dev</span>
+                                <span class="tag">AR/VR</span>
+                                <span class="tag">UI/UX</span>
+                            </div>
+                            <div class="interest-level">
+                                <span class="interest-count">
+                                    <i class="fas fa-user"></i> 12 interested
+                                </span>
+                            </div>
+                        </div>
+                        <div class="idea-actions">
+                            <button class="btn outline small">
+                                <i class="fas fa-share"></i> Share
+                            </button>
+                            <button class="btn secondary small">
+                                <i class="fas fa-heart"></i> Interested
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card idea-card">
+                        <div class="idea-header">
+                            <h3>Student Marketplace Platform</h3>
+                            <span class="idea-status">Looking for Team</span>
+                        </div>
+                        <p class="idea-description">Create a platform for students to buy and sell used textbooks, supplies, and services</p>
+                        <div class="idea-meta">
+                            <div class="tags">
+                                <span class="tag">Web Dev</span>
+                                <span class="tag">E-commerce</span>
+                                <span class="tag">Database</span>
+                            </div>
+                            <div class="interest-level">
+                                <span class="interest-count">
+                                    <i class="fas fa-user"></i> 8 interested
+                                </span>
+                            </div>
+                        </div>
+                        <div class="idea-actions">
+                            <button class="btn outline small">
+                                <i class="fas fa-share"></i> Share
+                            </button>
+                            <button class="btn secondary small">
+                                <i class="fas fa-heart"></i> Interested
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Events Section -->
+                <div class="events-container">
+                    <div class="card event-card highlight">
+                        <div class="event-date">
+                            <div class="date-content">
+                                <span class="month">MAY</span>
+                                <span class="day">15</span>
+                            </div>
+                        </div>
+                        <div class="event-details">
+                            <h3>Hackathon: Build for Good</h3>
+                            <div class="event-meta">
+                                <p>
+                                    <i class="fas fa-clock"></i> 9:00 AM - 9:00 PM
+                                </p>
+                                <p>
+                                    <i class="fas fa-map-marker-alt"></i> University Main Hall
+                                </p>
+                            </div>
+                            <p class="event-description">Join us for a 12-hour hackathon focused on building solutions for social good!</p>
+                            <div class="event-actions">
+                                <button class="btn outline">More Info</button>
+                                <button class="btn primary">RSVP</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card event-card">
+                        <div class="event-date">
+                            <div class="date-content">
+                                <span class="month">MAY</span>
+                                <span class="day">22</span>
+                            </div>
+                        </div>
+                        <div class="event-details">
+                            <h3>Tech Industry Networking</h3>
+                            <div class="event-meta">
+                                <p>
+                                    <i class="fas fa-clock"></i> 5:00 PM - 7:00 PM
+                                </p>
+                                <p>
+                                    <i class="fas fa-map-marker-alt"></i> Innovation Center
+                                </p>
+                            </div>
+                            <p class="event-description">Network with representatives from top tech companies and startups</p>
+                            <div class="event-actions">
+                                <button class="btn outline">More Info</button>
+                                <button class="btn primary">RSVP</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pagination">
+                <a href="#" class="pagination-item active">1</a>
+                <a href="#" class="pagination-item">2</a>
+                <a href="#" class="pagination-item">3</a>
+                <span class="pagination-ellipsis">...</span>
+                <a href="#" class="pagination-item">8</a>
+                <a href="#" class="pagination-next">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- CSS for search page -->
+<style>
+    .search-section {
+        padding: 20px;
+    }
+    
+    .search-container {
+        margin-bottom: 20px;
+    }
+    
+    .search-box {
+        margin-bottom: 20px;
+    }
+    
+    .main-search-form {
+        width: 100%;
+    }
+    
+    .search-input-wrapper {
+        display: flex;
+        width: 100%;
+        position: relative;
+    }
+    
+    .main-search-input {
+        flex: 1;
+        height: 50px;
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: 2px solid var(--border-color);
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+    
+    .main-search-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.3);
+        outline: none;
+    }
+    
+    .search-btn {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    
+    .search-btn:hover {
+        background-color: var(--primary-dark);
+    }
+    
+    .search-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        background-color: var(--card-bg);
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: var(--card-shadow);
+    }
+    
+    .filter-group {
+        display: flex;
+        flex-direction: column;
+        min-width: 150px;
+        flex: 1;
+    }
+    
+    .filter-group label {
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: var(--text-color-secondary);
+        font-size: 0.9rem;
+    }
+    
+    .filter-group select {
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: 1px solid var(--border-color);
+        background-color: var(--input-bg);
+        font-size: 0.9rem;
+        cursor: pointer;
+    }
+    
+    .search-results {
+        background-color: var(--card-bg);
+        border-radius: 8px;
+        box-shadow: var(--card-shadow);
+        padding: 20px;
+    }
+    
+    .search-results-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .search-results-header h2 {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+    
+    .results-count {
+        color: var(--text-color-secondary);
+        font-size: 0.9rem;
+    }
+    
+    .results-sorting {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .results-sorting label {
+        color: var(--text-color-secondary);
+        font-size: 0.9rem;
+    }
+    
+    .results-sorting select {
+        padding: 6px 12px;
+        border-radius: 6px;
+        border: 1px solid var(--border-color);
+        background-color: var(--input-bg);
+        font-size: 0.9rem;
+        cursor: pointer;
+    }
+    
+    .search-results-tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 10px;
+    }
+    
+    .tab-btn {
+        padding: 8px 16px;
+        background: none;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        color: var(--text-color-secondary);
+        transition: all 0.2s;
+    }
+    
+    .tab-btn:hover {
+        background-color: var(--hover-bg);
+        color: var(--text-color);
+    }
+    
+    .tab-btn.active {
+        background-color: var(--primary-color);
+        color: white;
+    }
+    
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .teams-container, .ideas-container, .events-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        margin-top: 30px;
+    }
+    
+    .pagination-item, .pagination-next {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 6px;
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+    
+    .pagination-item:hover, .pagination-next:hover {
+        background-color: var(--hover-bg);
+    }
+    
+    .pagination-item.active {
+        background-color: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+    }
+    
+    .pagination-ellipsis {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .search-filters {
+            flex-direction: column;
+        }
+        
+        .search-results-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .results-sorting {
+            margin-top: 10px;
+            width: 100%;
+        }
+        
+        .results-sorting select {
+            flex: 1;
+        }
+        
+        .card-container, .teams-container, .ideas-container, .events-container {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tab functionality for search results
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Here you would typically filter the search results based on the selected tab
+                const tabType = this.dataset.tab;
+                console.log(`Tab ${tabType} selected`);
+                
+                // For now this is just a placeholder for backend functionality
+            });
+        });
+        
+        // Mobile responsiveness for search filters
+        const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+        
+        if(isSmallScreen) {
+            const filtersContainer = document.querySelector('.search-filters');
+            const filtersToggle = document.createElement('button');
+            filtersToggle.classList.add('filters-toggle', 'btn', 'outline', 'small');
+            filtersToggle.innerHTML = '<i class="fas fa-filter"></i> Filters';
+            
+            // Insert the toggle button before the filters container
+            filtersContainer.parentNode.insertBefore(filtersToggle, filtersContainer);
+            filtersContainer.style.display = 'none';
+            
+            filtersToggle.addEventListener('click', function() {
+                if(filtersContainer.style.display === 'none') {
+                    filtersContainer.style.display = 'flex';
+                } else {
+                    filtersContainer.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
+{% endblock content %}

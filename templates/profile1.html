@@ -1,34 +1,6 @@
 {% extends "ApplayoutSidebar.html" %}
 {% load static %}
 
-{% comment %} {% extends "ApplayoutSidebar.html" %}
-{% load static %}
-
-        {% block content %}
-        <div style="position: absolute;right: 100px;">
-        <form method="POST" action="{% url "profile" %}" enctype="multipart/form-data">
-            {% csrf_token %}
-            <label><input type="text" name="username" id="username">User Name:</label><br>
-            <label><input type="text" name="userdept" id="userdept">User Dept:</label><br>
-            <label><input type="text" name="userAge" id="userAge">User Age:</label><br>
-            <label><input type="date" name="userDOB" id="userDOB">User DOB:</label><br>
-            <label><input type="file" accept="image/*" name="userimage" id="userimage">User Image:</label><br>
-            <label><input type="textarea" name="userbio" id="userbio">User Bio:</label><br>
-            <label><input type="text" name="skills" id="skills">User Skills:</label><br>
-            <label><input type="text" name="hobbies" id="hobbies">User Hobbies:</label><br>
-            <label><input type="text" name="sleep_schedule" id="sleep_schedule">User Sleep Schedule:</label><br>
-            <label><input type="text" name="userCGPA" id="userCGPA">User CGPA:</label><br>
-            <label><input type="text" name="hackathonNo" id="hackathonNo">User Hackathon:</label><br>
-            <label><input type="text" name="leetcodeNo" id="leetcodeNo">User Leetcode:</label><br>
-            <label><input type="text" name="contestNo" id="contestNo">User Contest:</label><br>
-            <label><input type="date" name="yearofaddmission" id="yearofaddmission">User Admission:</label><br>
-            <label><input type="date" name="passoutyear" id="passoutyear">User Passout:</label><br>
-            <button type="submit">Submit</button>
-        </form>
-        <br>
-    </div>
-        {% endblock content %} {% endcomment %}
-
         
         {% block content %}
         <div class="profile-form-container">

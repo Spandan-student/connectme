@@ -70,35 +70,39 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // FAQ accordion
-    const faqItems = document.querySelectorAll('.faq-item');
+    // const faqItems = document.querySelectorAll('.faq-item');
     
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
+    // faqItems.forEach(item => {
+    //     const question = item.querySelector('.faq-question');
         
-        if (question) {
-            question.addEventListener('click', function() {
-                // Close all other items
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item) {
-                        otherItem.classList.remove('active');
-                    }
-                });
+    //     if (question) {
+    //         question.addEventListener('click', function() {
+    //             // Close all other items
+    //             console.log('FAQ item clicked');
+    //             faqItems.forEach(otherItem => {
+    //                 if (otherItem !== item) {
+    //                     otherItem.classList.remove('active');
+    //                 }
+    //             });
                 
-                // Toggle this item
-                item.classList.toggle('active');
+    //             // Toggle this item
+    //             item.classList.toggle('active');
+
+    //             // Get the answer element
+    //             const answer = faqItem.querySelector('.faq-answer');
                 
-                // Change icon
-                const icon = question.querySelector('.faq-toggle i');
-                if (icon) {
-                    if (item.classList.contains('active')) {
-                        icon.className = 'fas fa-minus';
-                    } else {
-                        icon.className = 'fas fa-plus';
-                    }
-                }
-            });
-        }
-    });
+    //             // Change icon
+    //             const icon = question.querySelector('.faq-toggle i');
+    //             if (icon) {
+    //                 if (item.classList.contains('active')) {
+    //                     icon.className = 'fas fa-minus';
+    //                 } else {
+    //                     icon.className = 'fas fa-plus';
+    //                 }
+    //             }
+    //         });
+    //     }
+    // });
     
     // Authentication tabs
     const authTabs = document.querySelectorAll('.auth-tab');

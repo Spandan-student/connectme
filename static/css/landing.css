@@ -467,7 +467,8 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.2);
+    /* background-image: url('../images/banner.jpg'); */
+    background-color: rgba(0, 246, 74, 0.584);
     margin-right: 15px;
 }
 
@@ -553,12 +554,12 @@ body {
     padding: 0 20px;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
+    transition: max-height 0.3s ease, padding 0.3s ease;;
 }
 
 .faq-item.active .faq-answer {
     padding: 0 20px 20px;
-    max-height: 200px;
+    max-height: 500px;
 }
 
 .faq-item.active .faq-toggle {
@@ -588,7 +589,7 @@ body {
 }
 
 .app-badge img {
-    height: 50px;
+    height: 135px;
     transition: var(--hover-transition);
 }
 

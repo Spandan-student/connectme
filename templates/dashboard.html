@@ -120,10 +120,12 @@
                         {% for i in recommended_connections %}
                         <div class="card student-card">
                             <div class="student-header">
-                                <div class="student-avatar">
+                                <a href="{% url 'peerprofile' i.personal_details.university_email.id %}">
+                                    <div class="student-avatar">
                                     <img src="{{ i.personal_details.userimage.url }}" alt="Student">
                                     <span class="status-dot online"></span>
-                                </div>
+                                    </div>
+                                </a>
                                 <div class="student-actions">
                                     <button class="action-icon" title="Message">
                                         <i class="fas fa-comment"></i>
@@ -134,7 +136,9 @@
                                 </div>
                             </div>
                             <div class="student-info">
-                                <h3>{{ i.personal_details.username }}</h3>
+                                <a href="{% url 'peerprofile' i.personal_details.university_email.id %}" class="student-name-link">
+                                    <h3>{{ i.personal_details.username }}</h3>
+                                </a>
                                 <p class="student-major">{{ i.personal_details.userdept }}, 3rd Year</p>
                                 <div class="match-score">
                                     <span class="match-label">Match</span>
@@ -620,4 +624,18 @@
             });
         });
         </script>
+    <style>
+        /* Add styling for profile links */
+        .student-name-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .student-name-link:hover h3 {
+            color: var(--primary-color);
+        }
+        .student-avatar:hover {
+            opacity: 0.9;
+            cursor: pointer;
+        }
+    </style>
     {% endblock content %}
