@@ -156,6 +156,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # MEDIA_ROOT= BASE_DIR / 'media'    used when in development
+MEDIA_URL= "/media/"
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv('your_cloud_name'),
@@ -163,5 +165,4 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': os.getenv('your_api_secret')
 }
 
-MEDIA_URL= "/media/"
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
